@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:lang="http://www.springframework.org/schema/lang"
+	xsi:schemaLocation="
+     http://www.springframework.org/schema/beans 
+     http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+     http://www.springframework.org/schema/tx
+     http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+     http://www.springframework.org/schema/aop 
+     http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+     http://www.springframework.org/schema/jee 
+     http://www.springframework.org/schema/jee/spring-jee-3.1.xsd
+     http://www.springframework.org/schema/context
+     http://www.springframework.org/schema/context/spring-context-3.1.xsd
+     http://www.springframework.org/schema/lang
+     http://www.springframework.org/schema/lang/spring-lang-3.1.xsd">
+     <beans>
+     	<bean id="configuration" class="com.haier.openplatform.jdbc.HOPJdbcConfiguration">
+			<property name="jdbcProfiler" ref="jdbcProfiler"></property>
+		</bean>
+		<bean id="jdbcProfiler" class="com.haier.openplatform.console.audit.JdbcAuditProfiler"></bean>
+     </beans>
+     <!--  
+     <beans profile="PRODUCTION">
+     	<jee:jndi-lookup id="dataSourceTarget" jndi-name="jdbc/console" />
+     	<bean id="dataSource" class="com.haier.openplatform.jdbc.HOPCombinationDataSource">
+			<property name="dataSources">
+				<list>
+					<ref bean="dataSourceTarget" />
+				</list>
+			</property>
+			<property name="configuration" ref="configuration" />
+		</bean>
+		<bean id="quartzDataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close"> 
+		    <property name="url" value="jdbc:mysql://10.158.156.137:3306/quartz?useUnicode=true&amp;characterEncoding=utf8" />
+		    <property name="username" value="console" />
+		    <property name="password" value="console" />
+		    <property name="filters" value="log4j" />
+		    <property name="maxActive" value="20" />
+		    <property name="initialSize" value="10" />
+		    <property name="maxWait" value="60000" />
+		    <property name="minIdle" value="1" />
+		    <property name="timeBetweenEvictionRunsMillis" value="3000" />
+		    <property name="minEvictableIdleTimeMillis" value="300000" />
+		    <property name="validationQuery" value="SELECT 'x'" />
+		    <property name="testWhileIdle" value="true" />
+		    <property name="testOnBorrow" value="false" />
+		    <property name="testOnReturn" value="false" />
+		    <property name="poolPreparedStatements" value="false" />
+		    <property name="maxPoolPreparedStatementPerConnectionSize" value="20" />
+		</bean>
+     </beans>
+     -->
+     <beans profile="DEV,TEST">     	
+      <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/console?useUnicode=true&amp;characterEncoding=UTF-8"/>
+        <property name="username" value="root"/>
+        <property name="password" value="root"/>
+        <property name="maxActive" value="5"/>
+        <property name="maxIdle" value="2"/>
+        <property name="defaultAutoCommit" value="false"/>       
+        <property name="timeBetweenEvictionRunsMillis" value="3600000"/>
+        <property name="minEvictableIdleTimeMillis" value="3600000"/>
+      </bean>
+     	
+     	
+		<!--  
+		<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+			<property name="driverClassName">
+				<value>oracle.jdbc.driver.OracleDriver</value>
+			</property>
+			<property name="url">
+				<value>jdbc:oracle:thin:@10.158.156.137:1521/ORCL</value>
+			</property>
+			<property name="username">
+				<value>console</value>
+			</property>
+			<property name="password">
+				<value>console</value>
+			</property>
+		</bean>
+		-->
+     	<!-- <bean id="quartzDataSourceTarget" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close"> 
+		    <property name="url" value="jdbc:mysql://10.158.156.137:3306/quartz?useUnicode=true&amp;characterEncoding=utf8" />
+		    <property name="username" value="root" />
+		    <property name="password" value="root" />
+		    <property name="filters" value="log4j" />
+		    <property name="maxActive" value="20" />
+		    <property name="initialSize" value="10" />
+		    <property name="maxWait" value="60000" />
+		    <property name="minIdle" value="1" />
+		    <property name="timeBetweenEvictionRunsMillis" value="3000" />
+		    <property name="minEvictableIdleTimeMillis" value="300000" />
+		    <property name="validationQuery" value="SELECT 'x' from dual" />
+		    <property name="testWhileIdle" value="true" />
+		    <property name="testOnBorrow" value="false" />
+		    <property name="testOnReturn" value="false" />
+		    <property name="poolPreparedStatements" value="false" />
+		    <property name="maxPoolPreparedStatementPerConnectionSize" value="20" />
+		</bean> -->
+		<bean id="quartzDataSource" class="com.haier.openplatform.jdbc.HOPCombinationDataSource">
+			<!-- <property name="dataSources">
+				<list>
+					<ref bean="quartzDataSourceTarget" />
+				</list>
+			</property> -->
+			<property name="configuration" ref="configuration" />
+		</bean>
+		<!-- jira -->
+		<!-- <bean id="jiradata" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close"> 
+		    <property name="url" value="jdbc:mysql://10.158.156.137:3306/jiradb" />
+		    <property name="username" value="root" />
+		    <property name="password" value="root" />
+		    <property name="filters" value="log4j" />
+		    <property name="maxActive" value="20" />
+		    <property name="initialSize" value="5" />
+		    <property name="maxWait" value="60000" />
+		    <property name="minIdle" value="1" />
+		    <property name="timeBetweenEvictionRunsMillis" value="3000" />
+		    <property name="minEvictableIdleTimeMillis" value="300000" />
+		    <property name="validationQuery" value="SELECT 'x' from dual" />
+		    <property name="testWhileIdle" value="true" />
+		    <property name="testOnBorrow" value="false" />
+		    <property name="testOnReturn" value="false" />
+		    <property name="poolPreparedStatements" value="false" />
+		    <property name="maxPoolPreparedStatementPerConnectionSize" value="20" />
+		</bean>
+		<bean id="soadata" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close"> 
+		    <property name="url" value="jdbc:oracle:thin:@10.158.156.137:1521/SOA" />
+		    <property name="username" value="devuser_longfei" />
+		    <property name="password" value="123456" />
+		    <property name="filters" value="log4j" />
+		    <property name="maxActive" value="20" />
+		    <property name="initialSize" value="5" />
+		    <property name="maxWait" value="60000" />
+		    <property name="minIdle" value="1" />
+		    <property name="timeBetweenEvictionRunsMillis" value="3000" />
+		    <property name="minEvictableIdleTimeMillis" value="300000" />
+		    <property name="validationQuery" value="SELECT 'x' FROM DUAL" />
+		    <property name="testWhileIdle" value="true" />
+		    <property name="testOnBorrow" value="false" />
+		    <property name="testOnReturn" value="false" />
+		    <property name="poolPreparedStatements" value="true" />
+		    <property name="maxPoolPreparedStatementPerConnectionSize" value="20" />
+		</bean>  -->
+     </beans>
+	 <!--  
+	 <beans profile="PRODUCTION">
+		<jee:jndi-lookup id="jiradataTarget" jndi-name="jdbc/jira" />
+		<jee:jndi-lookup id="SOATarget" jndi-name="jdbc/soa" />
+		<bean id="jiradata" class="com.haier.openplatform.jdbc.HOPCombinationDataSource">
+			<property name="dataSources">
+				<list>
+					<ref bean="jiradataTarget" />
+				</list>
+			</property>
+			<property name="configuration" ref="configuration" />
+		</bean>
+		<bean id="soadata" class="com.haier.openplatform.jdbc.HOPCombinationDataSource">
+			<property name="dataSources">
+				<list>
+					<ref bean="SOATarget" />
+				</list>
+			</property>
+			<property name="configuration" ref="configuration" />
+		</bean>
+	 </beans>
+	 -->
+</beans>

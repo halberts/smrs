@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+  <department id="99999901" parent_id="99999901" name="UNIT_01" code="UNIT_01" description="UNIT_01" status="1" GMT_CREATE="2012-02-27 12:23:34.0" CREATE_BY="Kevin" GMT_MODIFIED="2012-02-27 12:23:34.0" LAST_MODIFIED_BY="Kevin"/>
+  <department id="99999902" parent_id="99999902" name="UNIT_02" code="UNIT_02" status="1" GMT_CREATE="2012-02-27 12:23:34.0" CREATE_BY="Kevin" GMT_MODIFIED="2012-02-27 12:23:34.0" LAST_MODIFIED_BY="Kevin"/>
+  <department id="99999903" parent_id="99999901" name="UNIT_03" code="UNIT_03" description="HR" status="1" GMT_CREATE="2012-02-27 17:08:42.0" CREATE_BY="Kevin" GMT_MODIFIED="2012-02-27 17:08:42.0" LAST_MODIFIED_BY="Kevin"/>
+  <department id="99999904" parent_id="99999901" name="UNIT_04" code="UNIT_04" description="UNIT_01" status="1" GMT_CREATE="2012-02-27 12:23:34.0" CREATE_BY="Kevin" GMT_MODIFIED="2012-02-27 12:23:34.0" LAST_MODIFIED_BY="Kevin"/>
+  <department id="99999905" parent_id="99999902" name="UNIT_05" code="UNIT_05" status="1" GMT_CREATE="2012-02-27 12:23:34.0" CREATE_BY="Kevin" GMT_MODIFIED="2012-02-27 12:23:34.0" LAST_MODIFIED_BY="Kevin"/>
+  <department id="99999906" parent_id="99999901" name="UNIT_06" code="UNIT_06" description="HR" status="1" GMT_CREATE="2012-02-27 17:08:42.0" CREATE_BY="Kevin" GMT_MODIFIED="2012-02-27 17:08:42.0" LAST_MODIFIED_BY="Kevin"/>
+  <department id="99999907" parent_id="99999901" name="UNIT_07" code="UNIT_07" description="UNIT_01" status="1" GMT_CREATE="2012-02-27 12:23:34.0" CREATE_BY="Kevin" GMT_MODIFIED="2012-02-27 12:23:34.0" LAST_MODIFIED_BY="Kevin"/>
+  <department id="99999908" parent_id="99999902" name="UNIT_08" code="UNIT_08" status="1" GMT_CREATE="2012-02-27 12:23:34.0" CREATE_BY="Kevin" GMT_MODIFIED="2012-02-27 12:23:34.0" LAST_MODIFIED_BY="Kevin"/>
+  <department id="99999909" parent_id="99999901" name="UNIT_09" code="UNIT_09" description="HR" status="1" GMT_CREATE="2012-02-27 17:08:42.0" CREATE_BY="Kevin" GMT_MODIFIED="2012-02-27 17:08:42.0" LAST_MODIFIED_BY="Kevin"/>
+  <department id="99999910" parent_id="99999901" name="UNIT_10" code="UNIT_10" description="UNIT_01" status="1" GMT_CREATE="2012-02-27 12:23:34.0" CREATE_BY="Kevin" GMT_MODIFIED="2012-02-27 12:23:34.0" LAST_MODIFIED_BY="Kevin"/>
+</dataset>

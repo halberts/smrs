@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="fileSystem" extends="console" namespace="/fileSystem">
+		<action name="fileSystem" class="fileSystemAction">
+        	<result>/WEB-INF/pages/fileSystem/file_system_management.jsp</result>
+        </action>
+	</package>
+</struts>

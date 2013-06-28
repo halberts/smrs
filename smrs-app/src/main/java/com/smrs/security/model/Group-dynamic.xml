@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE dynamic-hibernate-statement PUBLIC "-//Haier/HOP Hibernate Dynamic Statement DTD 1.0//EN"
+"http://www.haier.com/dtd/dynamic-hibernate-statement-1.0.dtd">
+<dynamic-hibernate-statement>
+	<!-- 获取某个组下的所有用户 -->
+	<sql-query name="group.queryUsersByGroupId">
+	<return class="com.smrs.security.model.GroupUser">
+			<return-property name="id" column="id" type="long"/>   
+			<return-property name="name" column="name" type="string"/>  
+			<return-property name="email" column="email" type="string"/>  
+			<return-property name="type" column="type" type="int"/>  
+			<return-property name="status" column="status" type="int"/>  
+			<return-property name="currentLoginIp" column="current_login_ip" type="string"/>  
+			<return-property name="lastLoginTime" column="last_login_time" type="date"/>  
+			<return-property name="nickName" column="nick_name" type="string"/>
+			<return-property name="isAdmin" column="is_admin" type="int"/>  
+	</return>
+	<![CDATA[
+	    select ui.id,
+		       ui.name,
+		       ui.email,
+		       ui.type,
+		       ui.status,
+		       ui.current_login_ip,
+		       ui.last_login_time, 
+		       ui.nick_name,
+		       gui.is_admin
+       from user_info ui,(select * from user_group ug where ug.group_id = ${groupid}) gui
+ 		where ui.id = gui.user_id 
+ 			  and ui.name like '%${userName}%' 
+			  and ui.nick_name like '%${nickName}%'
+			  <#if email?? && email != "">
+			  and ui.email like '%${email}%'
+			  </#if>
+	]]> 
+	</sql-query>
+	<!-- 获取某个组下的所有角色 -->
+	<sql-query name="group.queryRolesByGroupId">
+	<return class="com.smrs.security.model.RoleModel">
+			<return-property name="id" column="id" type="long"/>  
+			<return-property name="name" column="name" type="string"/>  
+			<return-property name="description" column="description" type="string"/>
+			<return-property name="createBy" column="create_by" type="string"/>
+			<return-property name="gmtCreate" column="gmt_create" type="string"/>
+			<return-property name="lastModifiedBy" column="last_modified_by" type="string"/>
+			<return-property name="gmtModified" column="gmt_modified" type="string"/>
+	</return>   
+	<![CDATA[  
+	    select r.id, 
+			   r.name, 
+			   r.description ,
+		       r.create_by ,
+			   r.gmt_create ,
+			   r.last_modified_by ,
+			   r.gmt_modified
+  		from role r, (select * from role_group rg where rg.group_id = ${groupid}) gri
+	 		where r.id = gri.role_id  
+		 		  and r.name like '%${roleName}%'   
+		 		  <#if roleDescription?? && roleDescription != ""> 
+		 		  and r.description like '%${roleDescription}%'  
+		 		  </#if>
+	]]> 
+	</sql-query>  
+	<!-- 获取组内管理员 -->
+	<sql-query name="group.queryGroupAdminByGroupId">
+	<return class="com.smrs.security.model.GroupUser">
+			<return-property name="id" column="id" type="long"/>   
+			<return-property name="name" column="name" type="string"/>  
+			<return-property name="email" column="email" type="string"/>  
+			<return-property name="type" column="type" type="int"/>  
+			<return-property name="status" column="status" type="int"/>  
+			<return-property name="currentLoginIp" column="current_login_ip" type="string"/>  
+			<return-property name="lastLoginTime" column="last_login_time" type="date"/>  
+			<return-property name="nickName" column="nick_name" type="string"/>    
+			<return-property name="isAdmin" column="is_admin" type="int"/>  
+	</return>
+	<![CDATA[
+	  	    select ui.id,
+			       ui.name,
+			       ui.email,
+			       ui.type,
+			       ui.status,
+			       ui.current_login_ip,
+			       ui.last_login_time, 
+			       ui.nick_name,
+			       ug.is_admin
+			from admin_user_info ui left join admin_user_group_rel ug
+				  on ui.id = ug.user_id
+				  and ug.group_id = ${groupid} 
+		    where ui.name like '%${userName}%'  
+			      and ui.nick_name like '%${nickName}%' 
+			      and ui.email like '%${email}%'
+			      and ug.is_admin = 1
+			order by ug.is_admin desc
+	]]> 
+	</sql-query> 
+	<!-- 获取当前登录用户为管理员的所有组-->
+	<sql-query name="group.AdminGroupsByPager">
+	<return class="com.smrs.security.model.GroupModel">
+			<return-property name="id" column="id" type="long"/>  
+			<return-property name="description" column="description" type="string"/>
+			<return-property name="name" column="name" type="string"/>  
+	</return>
+	<![CDATA[
+	  	    select gi.id,
+			       gi.description,
+			       gi.name
+			from admin_group_info gi,admin_user_group_rel ug
+			 where gi.id = ug.group_id 
+			 	   and ug.user_id = ${userId}
+	]]> 
+	</sql-query> 
+	<!-- 根据groupName查找组-->
+	<sql-query name="group.getGroupByName">
+	<return class="com.smrs.security.model.GroupModel">
+			<return-property name="id" column="id" type="long"/>  
+			<return-property name="description" column="description" type="string"/>
+			<return-property name="name" column="name" type="string"/>  
+	</return>
+	<![CDATA[
+	  	    select gi.id,
+			       gi.description,
+			       gi.name
+			from admin_group_info gi
+			 where gi.name = '${groupName}'
+	]]> 
+	</sql-query> 
+	<!-- 根据组ID获取组内角色 -->
+	<sql-query name="group.getRolesByGroupId">
+	<return class="com.smrs.security.model.RoleModel">
+			<return-property name="id" column="id" type="long"/>  
+			<return-property name="description" column="description" type="string"/>
+			<return-property name="name" column="name" type="string"/>  
+	</return>
+	<![CDATA[  
+		select r.id,r.name,
+			   r.description
+ 		 from role r, role_group rg
+ 			where rg.group_id = ${groupid}
+   				  and r.id = rg.role_id 
+	]]> 
+	</sql-query>  
+	
+	<!-- 根据用户ID查找用户所在的组-->
+	<sql-query name="group.getGroupsByUserId">
+	<![CDATA[
+	  	    select gi.id,
+			       gi.description,
+			       gi.name
+			from group_info gi,user_group ug
+			 where gi.id = ug.group_id
+				   and ug.user_Id = ${userId}
+	]]> 
+	</sql-query> 
+	<!-- 根据用户ID查找用户所在组包含的角色-->
+	<sql-query name="group.getRolesByUserId">
+	<return class="com.smrs.security.model.RoleModel">
+			<return-property name="id" column="id" type="long"/>  
+			<return-property name="description" column="description" type="string"/>
+			<return-property name="name" column="name" type="string"/>  
+	</return>
+	<![CDATA[
+	  	  	select distinct ri.id,  
+				  		    ri.name,
+				  		    ri.description
+					from user_group ug,
+					     role_group rg, 
+					     role ri
+				where ug.user_id = ${userId}
+				      and ug.group_id = rg.group_id 
+				      and ri.id = rg.role_id
+	]]> 
+	</sql-query>  
+</dynamic-hibernate-statement>

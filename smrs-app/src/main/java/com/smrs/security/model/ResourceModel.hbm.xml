@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.smrs.security.model">
+	<class name="ResourceModel" table="admin_resource_info">
+		<!-- <cache usage="read-write" /> -->
+		<id name="id" type="long">
+			<generator class="native" />
+		</id>
+		<property name="name" column="NAME"/>
+		<property name="description" column="DESCRIPTION"/>
+		<property name="url" column="URL"/>
+		<property name="type" column="TYPE"/>
+		<property name="code" column="CODE"/>
+		<property name="configuration" column="CONFIGURATION"/>
+		<property name="moduleName" column="MODULE_NAME"/>
+		
+		<property name="status" column="status"/>
+		<property name="creator" column="creator"/>
+		<property name="creationDate" column="creation_date"/>
+		<property name="modifiedBy" column="modified_by"/>
+		<property name="lastModifyDate" column="last_modify_date"/>	
+		
+		<property name="orderIndex" column="ORDER_INDEX"/>
+		<many-to-one name="parent" column="PARENT_ID" class="ResourceModel">
+		</many-to-one>
+		<set name="groups" table="admin_group_resource_rel" lazy="false">
+			<key column="resource_id"></key>
+			<many-to-many class="GroupModel" column="group_id"/>
+		</set>
+	</class>
+</hibernate-mapping>

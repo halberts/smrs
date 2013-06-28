@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:lang="http://www.springframework.org/schema/lang"
+	xsi:schemaLocation="
+     http://www.springframework.org/schema/beans 
+     http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+     http://www.springframework.org/schema/tx
+     http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+     http://www.springframework.org/schema/aop 
+     http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+     http://www.springframework.org/schema/jee 
+     http://www.springframework.org/schema/jee/spring-jee-3.1.xsd
+     http://www.springframework.org/schema/context
+     http://www.springframework.org/schema/context/spring-context-3.1.xsd
+     http://www.springframework.org/schema/lang
+     http://www.springframework.org/schema/lang/spring-lang-3.1.xsd">
+	<!-- DAO -->
+	<bean id="userDAO" class="com.smrs.security.dao.impl.UserDAOImpl"
+		parent="baseHibernateDAO">
+	</bean> 
+	<!-- Service -->
+	<bean id="userService"
+		class="com.smrs.security.service.impl.UserServiceImpl">
+		<property name="userDAO" ref="userDAO"/>
+		<property name="roleDAO" ref="roleDAO"/>
+		
+		<property name="resourceDAO" ref="resourceDAO"/>
+		<property name="cacheManager" ref="ehcacheManager"/> 
+		<!-- 
+		<property name="emailSender" ref="emailSender"/>  
+		 -->
+	</bean>
+	<!-- Action -->
+	<bean id="searchUserAction" class="com.smrs.security.webapp.action.SearchUserAction" scope="prototype" parent="baseSecurityAction">
+	</bean>
+	<bean id="searchUserJsonAction" class="com.smrs.security.webapp.action.SearchUserJsonAction" scope="prototype" parent="baseSecurityAction">
+	</bean>
+	<bean id="createUserInitAction" class="com.smrs.security.webapp.action.CreateUserInitAction" scope="prototype" parent="baseSecurityAction">
+	</bean>
+	<bean id="createUserAction" class="com.smrs.security.webapp.action.CreateUserAction" scope="prototype" parent="baseSecurityAction">
+	</bean>
+	<bean id="deleteUserAction" class="com.smrs.security.webapp.action.DeleteUserAction" scope="prototype" parent="baseSecurityAction">
+	</bean>
+	<bean id="loginAction" class="com.smrs.security.webapp.action.LoginAction" scope="prototype" parent="baseSecurityAction">
+		<property name="checkCodeEnabled" value="${checkCodeEnabled}"/>
+		<property name="localeEnabled" value="true"/>
+		<property name="localeInfo" value="zh_CN"/>
+	</bean>
+	<bean id="logoutAction" class="com.smrs.security.webapp.action.LogoutAction" scope="prototype" parent="baseSecurityAction">
+	</bean>
+	<bean id="viewUserAction" class="com.smrs.security.webapp.action.ViewUserAction" scope="prototype" parent="baseSecurityAction">
+	</bean>
+	<bean id="updateUserInitAction" class="com.smrs.security.webapp.action.UpdateUserInitAction" scope="prototype" parent="baseSecurityAction">
+	</bean>
+	<bean id="updateUserAction" class="com.smrs.security.webapp.action.UpdateUserAction" scope="prototype" parent="baseSecurityAction">
+	</bean>
+	<bean id="updatePasswordInitAction" class="com.smrs.security.webapp.action.UpdatePasswordInitAction" scope="prototype" parent="baseSecurityAction"/>
+	<bean id="updatePasswordAction" class="com.smrs.security.webapp.action.UpdatePasswordAction" scope="prototype" parent="baseSecurityAction"/>
+	<bean id="resetPasswordAction" class="com.smrs.security.webapp.action.ResetPasswordAction" scope="prototype" parent="updatePasswordAction"/>
+	<bean id="resetPasswordInitAction" class="com.smrs.security.webapp.action.ResetPasswordInitAction" scope="prototype" parent="baseSecurityAction"/>
+	<bean id="exportUserListAction" class="com.smrs.security.webapp.action.ExportUserListAction" scope="prototype" parent="searchUserAction"/>
+	<!-- 用户密码找回 -->
+	<bean id="retrievePasswordAction" class="com.smrs.security.webapp.action.RetrievePasswordAction" scope="prototype" parent="baseSecurityAction">
+		<property name="userService" ref="userService"/>  
+	</bean>
+	<!-- 用户找回密码后更新密码 -->
+	<bean id="retrieveUpdatePasswordAction" class="com.smrs.security.webapp.action.RetrieveUpdatePasswordAction" scope="prototype" parent="baseSecurityAction">
+		<property name="userService" ref="userService"/>  
+	</bean> 
+	<!-- 用户找回密码后进入更新密码页面 -->
+	<bean id="toRetrieveUpdatePasswordAction" class="com.smrs.security.webapp.action.ToRetrieveUpdatePasswordAction" scope="prototype" parent="baseSecurityAction">
+	</bean>
+</beans>

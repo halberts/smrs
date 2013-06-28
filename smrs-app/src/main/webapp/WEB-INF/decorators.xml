@@ -1,0 +1,98 @@
+<decorators defaultdir="/decorators">
+    <excludes>
+        <pattern>/404.jsp</pattern>
+        <pattern>/error.jsp</pattern>
+        <pattern>/*ajax=true*</pattern>
+        <pattern>/scripts/dojo/*</pattern>
+        <pattern>/struts/dojo/*</pattern> 
+        <pattern>/resources/*</pattern>
+        <pattern>/security/loginInit.action*</pattern>
+        <pattern>/security/login.action*</pattern>
+        <pattern>/security/createUser.action*</pattern>
+        <pattern>/security/resourceTree.action*</pattern>
+        <pattern>/security/retrievePassword.action</pattern>
+        <pattern>/security/retrieveUserPassword.action</pattern>
+        <pattern>/security/retrieveUpdatePassword.action*</pattern>
+        <pattern>/security/toRetrieveUpdatePassword.action*</pattern><!-- 
+        <pattern>/security/addUserToGroupInit.action*</pattern>
+        <pattern>/security/addRoleToGroupInit.action*</pattern>
+        <pattern>/security/addAdminToGroupInit.action*</pattern>
+        <pattern>/security/searchUserToAddGroupInit.action*</pattern>
+        <pattern>/security/searchUserInGroup.action*</pattern>
+        <pattern>/security/searchRoleInGroup.action*</pattern>
+        <pattern>/security/searchAdminInGroup.action*</pattern>  
+         <pattern>/security/createGroupInit.action*</pattern> -->
+        <!-- <pattern>/security/updatePassword*.action*</pattern> -->
+        <pattern>*/leftMenu.action*</pattern>
+        <pattern>/quartz/updateTriggerInit.action*</pattern>
+        <pattern>/quartz/updateTrigger.action*</pattern>
+        <pattern>/WEB-INF/pages/dataAccessFailure.jsp</pattern>
+        
+        <!-- <pattern>/quartz/drawCronInit.action</pattern> -->
+        <!-- <pattern>/monitor/monitorCenter.action</pattern>
+        
+        <pattern>/monitor/levelSetup.action</pattern>
+        <pattern>/monitor/alarmSetup.action</pattern>
+        <pattern>/monitor/systemSupporter.action</pattern>
+        <pattern>/monitor/releaseTrack.action</pattern>
+        <pattern>/monitor/groupManage.action</pattern>
+        
+        
+        <pattern>/monitor/levelSearch.action</pattern>
+        <pattern>/monitor/overtimeInquiry.action</pattern>
+        <pattern>/monitor/exceptionInquiry.action</pattern>
+        <pattern>/monitor/apiInquiry.action</pattern>
+        <pattern>/monitor/apiInquiryDaily.action</pattern>
+        
+        <pattern>/monitor/levelCompare.action</pattern> -->
+  	    <!-- <pattern>/monitor/overtimeTopChart.action</pattern> -->
+  	   <!--  <pattern>/monitor/appCallSummary.action</pattern>
+  	    <pattern>/monitor/appExceptionSummary.action</pattern>
+  	    <pattern>/monitor/groupSummary.action</pattern>
+  	    
+  	    
+  	    <pattern>/monitor/emailInquiry.action</pattern>      
+  	    <pattern>/monitor/smsInquiry.action</pattern>   -->
+  	          
+  	            
+    </excludes> 
+    
+<!--     <decorator name="monitor" page="monitor_template3.jsp">
+    	<pattern>/monitor/monitorCenter.action</pattern>
+    
+  	    <pattern>/monitor/levelSetup.action</pattern>
+  	    <pattern>/monitor/alarmSetup.action</pattern>
+  	    <pattern>/monitor/systemSupporter.action</pattern>
+  	    <pattern>/monitor/releaseTrack.action</pattern>
+  	    <pattern>/monitor/groupManage.action</pattern>
+  	    
+  	    <pattern>/monitor/levelSearch.action</pattern>
+  	    <pattern>/monitor/overtimeInquiry.action</pattern>
+  	    <pattern>/monitor/exceptionInquiry.action</pattern>
+  	    <pattern>/monitor/apiInquiry.action</pattern>
+  	    <pattern>/monitor/apiInquiryDaily.action</pattern>
+  	    
+  	    
+  	    <pattern>/monitor/levelCompare.action</pattern>
+  	    <pattern>/monitor/overtimeTopChart.action</pattern>
+  	    <pattern>/monitor/appCallSummary.action</pattern>
+  	    <pattern>/monitor/appExceptionSummary.action</pattern>
+  	    <pattern>/monitor/groupSummary.action</pattern>
+  	    
+  	    <pattern>/monitor/emailInquiry.action</pattern>   
+    	<pattern>/monitor/smsInquiry.action</pattern>  
+    </decorator> -->
+    <decorator name="content" page="contentonly.jsp">
+    	<!-- <pattern>/security/addUserToGroupInit.action*</pattern>
+    	<pattern>/security/addRoleToGroupInit.action*</pattern> -->
+    </decorator>
+    
+    <decorator name="fileSystem" page="main_iframe.jsp">
+    	<pattern>/fileSystem/fileSystem.action*</pattern>
+    	<pattern>/WEB-INF/pages/fileSystem/file_system_management.jsp</pattern>
+    </decorator>
+    
+    <decorator name="default" page="main.jsp">
+        <pattern>/*</pattern>
+    </decorator>
+</decorators>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.smrs.basicdata.model">
+	<class table="dict_region" name="RegionModel">
+		<id  name="id" column="id" type="long">
+			<generator class="native" />
+		</id>
+		<property name="name" column="name"/>		
+		<property name="description" column="description"/>
+		
+		<property name="status" column="status"/>
+		<property name="creator" column="creator"/>
+		<property name="creationDate" column="creation_date"/>
+		<property name="modifiedBy" column="modified_by"/>
+		<property name="lastModifyDate" column="last_modify_date"/>	
+	</class>
+</hibernate-mapping>

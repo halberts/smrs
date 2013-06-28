@@ -1,0 +1,44 @@
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+           http://www.springframework.org/schema/beans/spring-beans-3.2.xsd  
+           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd  
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd  
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
+	<!-- Audit Common Spring configuration -->
+	<!-- <context:property-placeholder location="classpath:env.properties" /> -->
+	<!-- **********SpringApplicationContextHolder *************-->
+	<!-- <bean class="com.haier.openplatform.util.SpringApplicationContextHolder" /> -->
+	<!-- Used for monitor AOP -->
+	<bean id="HOPAudit" class="com.haier.openplatform.console.audit.HOPServiceAuditHandler">
+		<property name="excaptureSender" ref="exCaptureMsgSender"/>
+	</bean>
+	
+	<!-- JDBC audit notification -->
+	<!-- <bean id="jdbcConnTracker" class="com.haier.openplatform.console.audit.WLJDBCConnTracker" depends-on="jDBCConnectionPoolConf"/>
+    <bean id="SpringSimgleExcutor" class="org.springframework.core.task.SimpleAsyncTaskExecutor"/>
+    <bean class="com.haier.openplatform.console.audit.JDBCConnectionStatusCollector" init-method="init" destroy-method="cleanup">
+        <property name="jDBCPoolConf" ref="jDBCConnectionPoolConf" />
+        <property name="jDBCTracker" ref="jdbcConnTracker" />
+        <property name="springExcuter" ref="SpringSimgleExcutor" />
+        <property name="jDBCEmailSender" ref="emailSender" />
+        <property name="jDBCSmsSender" ref="smsSender" />
+        <property name="envType" value="${env.type}" />
+    </bean> -->
+    
+	<!-- Audit AOP configuration -->
+	<aop:config>
+   		<aop:pointcut id="execution" expression="execution(* com.haier..service.impl.*ServiceImpl.*(..))"/>   
+        <aop:aspect ref="HOPAudit" order="10">
+			<aop:before pointcut-ref="execution" method="beforeExecute" />
+			<aop:after-throwing pointcut-ref="execution" method="afterThrowing" throwing="ex"/>
+			<aop:after pointcut-ref="execution" method="afterExecute" />
+        </aop:aspect>        
+    </aop:config>
+    <bean class="com.haier.openplatform.console.audit.InvokeSum" destroy-method="cleanup">
+    	<property name="invokeSumSender" ref="invokeSumSender"/>
+    	<property name="exCaptureMsgSender" ref="exCaptureMsgSender"/>
+    </bean>
+	
+</beans>

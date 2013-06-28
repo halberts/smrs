@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	id="WebApp_ID" version="2.5">
+	<display-name>HOP-console</display-name>
+	<!-- 系统初始化listener -->
+	<context-param>
+		<param-name>startupListeners</param-name>
+		<param-value>com.smrs.util.SysconfigInitListener</param-value>
+	</context-param>
+	<listener>
+		<listener-class>com.haier.openplatform.webapp.listener.BootstrapListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+			<!-- classpath*:/hmc/hornetq/hmc-jms-hornetq.xml,
+			classpath*:/console/audit/console-audit.xml, 
+			classpath*:/console/jms/console-jms-consumer.xml,
+			classpath*:/console/jms/console-jms-provider.xml, -->
+			classpath*:/spring_web/**/spring-*.xml,
+			classpath*:/spring/**/spring-*.xml
+		</param-value>
+	</context-param>
+	<listener> 
+		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class> 
+	</listener>
+	 <!-- 集群session配置-基于terracotta实现  
+	<filter>
+		<filter-name>ClusterSessionFilter</filter-name>
+		<filter-class>com.haier.openplatform.session.filter.ClusterSessionFilter</filter-class>
+		<init-param>
+			<param-name>sessionServiceId</param-name>
+			<param-value>sessionService</param-value>
+		</init-param>
+		<init-param>
+			<param-name>requestUriIgnorePattern</param-name>
+			<param-value>.*\.(png|gif|jpg|css|js|ico|jpeg|htm|html)$</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>ClusterSessionFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+   -->
+	<!-- Clean up each threadlocal value and set necessary information for excepction capture 
+	<filter>
+		<filter-name>HOPAuditFilter</filter-name>
+		<filter-class>com.haier.openplatform.console.audit.HOPAuditFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>HOPAuditFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	-->
+	<!-- CXF 配置 -->
+	<!-- 
+		<servlet> <servlet-name>CXFServlet</servlet-name> <servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class> 
+		</servlet> <servlet-mapping> <servlet-name>CXFServlet</servlet-name> <url-pattern>/ws/*</url-pattern> 
+		</servlet-mapping> 
+	-->
+	<!-- Hessian 配置 -->
+	
+	<filter>
+    	<filter-name>openSessionInView</filter-name>
+    	<filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
+	</filter>
+	<filter-mapping>
+    	<filter-name>openSessionInView</filter-name>
+    	<url-pattern>*.action</url-pattern>
+  	</filter-mapping>
+  
+  
+	<servlet>
+		<servlet-name>HessianServlet</servlet-name>
+		<servlet-class>com.haier.openplatform.remoting.servlet.HessianServiceExplorerServlet</servlet-class>
+		<init-param>
+			<param-name>URL2BeanNameResolver</param-name>
+			<param-value>com.haier.openplatform.remoting.DefaultURL2BeanNameResolver</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>HessianServlet</servlet-name>
+		<url-pattern>/remoting/*</url-pattern>
+	</servlet-mapping>
+
+	<filter>
+		<filter-name>struts2-prepare</filter-name>
+		<filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareFilter</filter-class>
+		<init-param>
+			<param-name>config</param-name>
+			<param-value>struts-default.xml,struts-plugin.xml,struts/struts.xml</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>struts2-prepare</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>sitemesh</filter-name>
+		<filter-class>com.opensymphony.module.sitemesh.filter.PageFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>sitemesh</filter-name>
+		<url-pattern>*.action</url-pattern>
+	</filter-mapping>
+
+
+	<filter>
+		<filter-name>struts2</filter-name>
+		<filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsExecuteFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>struts2</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+
+	<error-page>
+		<error-code>500</error-code>
+		<location>/error.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>404</error-code>
+		<location>/404.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>403</error-code>
+		<location>/error.jsp</location>
+	</error-page>
+	
+	<!-- jsp自定义标签引入 -->
+	<jsp-config>
+		<taglib>
+			<taglib-uri>/security-tags</taglib-uri>
+			<taglib-location>/WEB-INF/tlds/auth.tld</taglib-location>
+		</taglib>
+	</jsp-config>
+</web-app>

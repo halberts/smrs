@@ -1,0 +1,4 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+  <department id="99999901" parent_id="99999901" name="UNIT_01" code="UNIT_01" description="自力资源部" status="1" gmt_create="2012-02-27 12:23:34.0" create_by="Kevin" gmt_modified="2012-02-27 12:23:34.0" last_modified_by="Kevin"/>
+</dataset>

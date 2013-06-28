@@ -1,0 +1,4 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+  <qrtz_job_details SCHED_NAME="_UNIT_TEST_01" JOB_NAME="JOBNAME" JOB_GROUP="JOBGROUP" DESCRIPTION="清理密码任务" JOB_CLASS_NAME="com.haier.openplatform.console.quartz.PasswordExpireJob" IS_DURABLE="1" IS_NONCONCURRENT="0" IS_UPDATE_DATA="0" REQUESTS_RECOVERY="1"/>
+</dataset>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.smrs.security.model">
+	<class name="UserModel" table="admin_user_info">
+		<!-- <cache usage="read-write" /> -->
+		<id name="id" type="long">
+			<generator class="native" />
+		</id>
+		<property name="name" column="name" />
+		<property name="password" column="password" />
+		<property name="trueName" column="true_name" />
+        <property name="mobile" column="mobile" />
+        <property name="gender" column="gender" />
+        <property name="userType" column="user_type" />
+        <property name="clerkType" column="clerk_type" />
+        <property name="userDiv" column="user_div" />
+        <property name="userJob" column="user_job" />        
+		<property name="email" column="email" />
+		<property name="memo" column="memo" />
+		<property name="responsibility" column="responsibility" />
+		<property name="lastLoginIp" column="last_login_ip" />
+		
+		
+		<property name="lastLoginTime" column="last_login_time" />
+		<property name="loginAttemptTimes" column="login_attempt_times" />	
+		<property name="passwordModifiedFlag" column="password_modified_flag" />		
+		
+		
+		<property name="status" column="status" />
+		  
+		<property name="creator" column="creator"/>
+		<property name="creationDate" column="creation_date"/>
+		<property name="modifiedBy" column="modified_by"/>
+		<property name="lastModifyDate" column="last_modify_date"/>	
+		<set name="groups" table="admin_user_group_rel" inverse="false" order-by="group_id asc" lazy="false">
+			<key column="user_id"></key>
+			<many-to-many column="group_id" class="GroupModel" />
+		</set>
+		<set name="stores" table="user_store_rel" lazy="false">
+			<key column="user_id"></key>
+			<many-to-many column="store_id" class="com.smrs.basicdata.model.StoreModel" />
+		</set>
+		<!-- <set name="roles" table="USER_ROLE">
+			<key column="USER_ID"></key>
+			<many-to-many class="Role" column="ROLE_ID"/>
+		</set> 
+		<set name="departments" table="USER_DEPARTMENT" lazy="false">
+			<key column="USER_ID"></key>
+			<many-to-many class="com.haier.openplatform.console.basic.domain.Department" column="DEPARTMENT_ID"/>
+		</set>
+		-->
+	</class>
+</hibernate-mapping>

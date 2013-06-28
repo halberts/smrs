@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="goods" extends="console" namespace="/goods">
+		<!-- department -->
+		<action name="*GoodsAttribute" class="com.smrs.goods.webapp.action.GoodsAttributeAction" method="{1}GoodsAttribute">
+			<result name="success">/WEB-INF/pages/goods/{1}GoodsAttribute.jsp</result>
+			<result name="search" type="redirectAction">searchGoodsAttribute.action</result>
+		</action>
+		
+		<action name="*GoodsAttributeValue" class="com.smrs.goods.webapp.action.GoodsAttributeValueAction" method="{1}GoodsAttributeValue">
+			<result name="success">/WEB-INF/pages/goods/{1}GoodsAttributeValue.jsp</result>
+			<result name="search" type="redirectAction">searchGoodsAttributeValue.action</result>
+		</action>	
+		
+		<action name="*GoodsCategory" class="com.smrs.goods.webapp.action.GoodsCategoryAction" method="{1}GoodsCategory">
+			<result name="success">/WEB-INF/pages/goods/{1}GoodsCategory.jsp</result>
+			<result name="search" type="redirectAction">searchGoodsCategory.action</result>
+		</action>			
+	
+		<action name="*Item" class="com.smrs.goods.webapp.action.GoodsItemAction" method="{1}Item">
+			<result name="success">/WEB-INF/pages/goods/{1}Item.jsp</result>
+			<result name="search" type="redirectAction">searchItem.action</result>
+		</action>
+
+		<action name="*Sku" class="com.smrs.goods.webapp.action.GoodsSkuAction" method="{1}Sku">
+			<result name="success">/WEB-INF/pages/goods/{1}Sku.jsp</result>
+			<result name="search" type="redirectAction">searchSku.action</result>
+		</action>
+		
+		<action name="*DictArea" class="com.smrs.basicdata.webapp.action.DictAreaAction" method="{1}DictArea">
+			<result name="success"></result>
+		</action>
+		
+		<action name="*Supplier" class="com.smrs.goods.webapp.action.SupplierAction" method="{1}Supplier">
+			<result name="success">/WEB-INF/pages/goods/{1}Supplier.jsp</result>
+			<result name="search" type="redirectAction">searchSupplier.action</result>
+		</action>
+		
+		<!-- 
+		<action name="storeTree" class="com.smrs.basicdata.webapp.action.StoreTreeAction" >
+			<interceptor-ref name="jsonCRUDStack" />
+			<result type="json">
+				<param name="root">nodes</param>
+			</result>
+		</action>
+		
+		<action name="displayStoreTree" class="com.smrs.basicdata.webapp.action.DisplayStoreTreeAction">
+			<interceptor-ref name="jsonCRUDStack" />
+			<result type="json">
+				<param name="root">nodes</param>
+			</result>
+		</action>
+		 -->	
+	</package>
+</struts>

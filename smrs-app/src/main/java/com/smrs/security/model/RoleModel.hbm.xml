@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.smrs.security.model">
+	<class name="RoleModel" table="ADMIN_ROLE_info">
+		<!-- <cache usage="read-write" /> -->
+		<id name="id" type="long">
+			<generator class="native" />
+		</id>
+		<property name="name" column="NAME"/>
+		<property name="description" column="DESCRIPTION"/>
+
+		<property name="status" column="status"/>
+		<property name="creator" column="creator"/>
+		<property name="creationDate" column="creation_date"/>
+		<property name="modifiedBy" column="modified_by"/>
+		<property name="lastModifyDate" column="last_modify_date"/>	
+		
+		<set name="users" table="admin_user_role">
+			<key column="role_id"></key>
+			<many-to-many class="UserModel" column="user_id"/>
+		</set>
+		<set name="resources" table="admin_role_resource_rel">
+			<key column="ROLE_ID"></key>
+			<many-to-many class="ResourceModel" column="resource_id"/>
+		</set>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,104 @@
+/**
+ * 包裹内容的边框样式
+ * author: infosys_vilight
+ */
+
+.content-box a {
+    color: #57A000;
+    text-decoration: none;
+}
+.content-box a:hover {
+    color: #000000;
+}
+.content-box a:active {
+    color: #777777;
+}
+.content-box a:focus {
+    outline: 1px none;
+}
+
+
+.content-box {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #CCCCCC;
+}
+.content-box, .content-box-header, ul.content-box-tabs li a.current {
+    border-radius: 6px 6px 0px 0px;
+}
+
+.content-box-header {
+    background: url("images/bg-content-box.gif") repeat-x scroll left top #E5E5E5;
+    height: 30px;
+    margin-top: 1px;
+}
+.content-box-header h3 {
+    float: left;
+    padding: 3px;
+    margin: 5px;
+    font-size: 14px;
+}
+
+.content-box-content {
+    border-top: 1px solid #CCCCCC;
+    padding: 10px 20px;
+}
+
+ul.content-box-tabs {
+    float: left;
+    margin: 0 !important;
+    padding: 12px 15px 0 2px !important;
+}
+
+ul.content-box-tabs li {
+    background-image: none !important;
+    float: left;
+    margin: 0;
+    padding: 0 !important;
+    
+	list-style: none outside none;
+    text-align: right;
+}
+
+ul.content-box-tabs li a {
+    border-bottom: 0 none;
+    color: #333333;
+    display: block;
+    margin: 1px;
+    padding: 6.5px 10px;
+}
+
+
+ul.content-box-tabs li a.current {
+    -moz-border-bottom-colors: none;
+    -moz-border-image: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-color: #CCCCCC #CCCCCC -moz-use-text-color;
+    border-style: solid solid none;
+    border-width: 1px 1px 0;
+    margin: 0;
+    color: #57A000;
+}
+
+ul.content-box-tabs li a.current {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

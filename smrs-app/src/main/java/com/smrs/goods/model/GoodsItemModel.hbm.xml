@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.smrs.goods.model">
+
+	<class table="goods_item" name="GoodsItemModel">
+		<id  name="id" column="id" type="long">
+			<generator class="native" />
+		</id>	
+		<property name="name" column="name"/>
+		<property name="code" column="code"/>
+		<property name="shortName" column="short_name"/>
+		<property name="description" column="description"/>
+		<property name="sortIndex" column="sort_index"/>
+		<property name="mfgSkuCode" column="mfg_sku_code"/>
+		<property name="categoryId1" column="category_id_1"/>
+		<property name="categoryName1" column="category_name_1"/>
+		<property name="categoryId2" column="category_id_2"/>
+		<property name="categoryName2" column="category_name_2"/>
+		<property name="categoryId3" column="category_id_3"/>
+		<property name="categoryName3" column="category_name_3"/>
+		<property name="categoryId4" column="category_id_4"/>
+		<property name="categoryName4" column="category_name_4"/>
+		<property name="supplierId" column="supplierId"/>
+		
+		<property name="brand" column="brand"/>
+		<property name="salesUnit" column="sales_unit"/>
+		<property name="batchFlag" column="batch_flag"/>
+		<property name="validFlag" column="valid_flag"/>
+		<property name="storageType" column="storage_type"/>
+		<property name="physicalType" column="physical_type"/>
+
+		<property name="status" column="status"/>
+		<property name="creator" column="creator"/>
+		<property name="creationDate" column="creation_date"/>
+		<property name="modifiedBy" column="modified_by"/>
+		<property name="lastModifyDate" column="last_modify_date"/>	
+		<!--  
+		<set name="groups" table="admin_store_group_rel"  inverse="true" order-by="store_id asc">
+		  <key column="store_id"></key>
+          <many-to-many column="group_id"  class="com.smrs.security.model.GroupModel"/>   
+		</set>
+		-->	
+	</class>
+</hibernate-mapping>

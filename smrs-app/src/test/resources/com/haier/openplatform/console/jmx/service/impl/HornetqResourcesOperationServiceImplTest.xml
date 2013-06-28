@@ -1,0 +1,4 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset> 
+  <hornetq_resources_audit_trail ID="9999999999" RESOURCE_IDENTIFIER="identifier" RESOURCE_KEY="key" RESOURCE_VALUE="value" AUDIT_TIMESTAMP="2012-06-19 17:23:23.000"/>											
+</dataset>

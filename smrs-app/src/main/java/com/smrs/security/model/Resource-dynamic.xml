@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE dynamic-hibernate-statement PUBLIC "-//Haier/HOP Hibernate Dynamic Statement DTD 1.0//EN"
+"http://www.haier.com/dtd/dynamic-hibernate-statement-1.0.dtd">
+<dynamic-hibernate-statement>
+	<!-- 查询某个资源下的直接子节点 -->
+	<hql-query name="resource.getChildren">
+	<![CDATA[
+		from Resource where parent.id=${parentId} and parent.id != id
+	]]> 
+	</hql-query>
+	<!-- 查询系统中所有的root资源 -->
+	<hql-query name="resource.getRoots">
+	<![CDATA[
+		from Resource where parent.id = id order by orderIndex
+	]]> 
+	</hql-query>
+	<!-- 根据角色ID查找角色关联的资源 -->
+	<sql-query name="resource.getGroupResourceByRole">
+	<![CDATA[
+		 select ri.id, 
+		  		ri.url,
+		  		ri.type,
+		  		ri.code
+		    from role_resource rr
+		    left join resource_info ri 
+		    	on rr.resource_id = ri.id
+		  	 where rr.role_id = ${roleId}
+	]]> 
+	</sql-query> 
+	<!-- 根据用户ID查找用户关联的资源 -->
+	<sql-query name="resource.getGroupResourceByUserId">
+	<return class="com.smrs.security.model.ResourceModel">
+			<return-property name="id" column="id" type="long"/>  
+			<return-property name="url" column="url" type="string"/>
+			<return-property name="type" column="type" type="int"/> 
+			<return-property name="code" column="code" type="string"/> 
+		</return>
+	<![CDATA[
+		select distinct ri.id, 
+				  		ri.url,
+				  		ri.type,
+				  		ri.code
+				from user_group ug,
+				     role_group rg,
+				     role_resource rr,
+				     resource_info ri
+				where ug.user_id = ${userId}
+				and ug.group_id = rg.group_id
+				and rg.role_id = rr.role_id
+				and rr.resource_id = ri.id
+	]]> 
+	</sql-query> 
+	<!-- 获取某个用户可访问的某个资源下的所有子资源 -->
+	<sql-query name="resource.getDescendants">
+		<return class="com.smrs.security.model.ResourceModel">
+			<return-property name="id" column="id" type="long"/>
+			<return-property name="name" column="name" type="string"/>
+			<return-property name="description" column="description" type="string"/>
+			<return-property name="url" column="url" type="string"/>
+			<return-property name="type" column="type" type="int"/>
+			<return-property name="status" column="status" type="int"/>
+			<return-property name="code" column="code" type="string"/>
+			<return-property name="configuration" column="configuration" type="string"/>
+			<return-property name="moduleName" column="module_name" type="string"/>
+			<return-property name="gmtCreate" column="gmt_create" type="date"/>
+			<return-property name="gmtModified" column="gmt_modified" type="date"/>
+			<return-property name="createBy" column="create_by" type="string"/>
+			<return-property name="lastModifiedBy" column="last_modified_by" type="string"/>
+			<return-property name="orderIndex" column="order_index" type="int"/>
+			<return-property name="parent.id" column="parent_id" type="long"/>
+		</return>
+	<![CDATA[
+		select distinct t.id,
+		                t.name,
+		                t.description,
+		                t.url,
+		                t.type,
+		                t.status,
+		                t.code,
+		                t.configuration,
+		                t.module_name,
+		                t.gmt_create,
+		                t.gmt_modified,
+		                t.create_by,
+		                t.last_modified_by,
+		                t.order_index,
+		                t.parent_id
+		  from resource_info t
+		 inner join role_resource rr
+		    on t.id = rr.resource_id
+		 inner join user_role ur
+		    on rr.role_id = ur.role_id
+		 where ur.user_id = ${userId}
+		 <#if type == '1'>
+		 	and t.type=1
+		 	<#else>
+		 	and t.type=0
+		 </#if>
+		   and t.type =  ${type}
+		   and t.status =  ${status}
+		 start with t.code = '${code}'
+		connect by nocycle prior t.id = t.parent_id
+	]]> 
+	</sql-query>
+</dynamic-hibernate-statement>

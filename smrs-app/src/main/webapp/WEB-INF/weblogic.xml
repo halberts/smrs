@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<weblogic-web-app xmlns="http://www.bea.com/ns/weblogic/weblogic-web-app">
+	<jsp-descriptor>
+		<debug>true</debug>
+	</jsp-descriptor>
+	<context-root>/</context-root>
+	<charset-params>
+		<input-charset>
+			<resource-path>/*</resource-path>
+			<java-charset-name>UTF-8</java-charset-name>
+		</input-charset>
+	</charset-params>
+	<container-descriptor>
+    	<prefer-web-inf-classes>true</prefer-web-inf-classes>
+  	</container-descriptor>
+</weblogic-web-app>

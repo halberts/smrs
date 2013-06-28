@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+   <group_info ID="99999911" NAME="管理权限组" DESCRIPTION="管理权限组描述" ADMIN="0"/> 
+   <group_info ID="99999912" NAME="销售组" DESCRIPTION="组描述"/> 
+   <group_info ID="99999913" NAME="娱乐组" DESCRIPTION="组描述"/> 
+   <group_info ID="99999914" NAME="文化组" DESCRIPTION="组描述"/> 
+   <group_info ID="99999915" NAME="娱乐有人组" DESCRIPTION="组描述"/> 
+   <group_info ID="99999916" NAME="娱乐有角色组" DESCRIPTION="组描述"/> 
+   <user_info ID="99999901" NAME="_UNIT_TEST_01" NICK_NAME="_UNIT_TEST_DEMO_USER_01" PASSWORD="111111" STATUS="1" EMAIL="wangxuzheng@gmail.com" TYPE="0" GMT_CREATE="2011-09-12 12:30:39.0" GMT_MODIFIED="2011-09-12 12:30:39.0" PASSWORD_EXPIRE_TIME="2011-11-02 22:53:47.593" CREATE_BY="Kevin" LAST_MODIFIED_BY="Kevin"/>
+   <user_group USER_ID="99999901" GROUP_ID="99999915" IS_ADMIN="1"/> 
+   <role ID="99999911" name="测试角色" DESCRIPTION="测试角色"/>
+   <role_group ROLE_ID="99999911" GROUP_ID="99999916"/>
+</dataset>

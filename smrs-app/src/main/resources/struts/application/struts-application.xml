@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="application" extends="console" namespace="/application">
+		<!-- application -->
+		<!-- 查询应用信息 -->
+		<action name="searchApplication" class="searchApplicationAction">
+			<result name="success">/WEB-INF/pages/application/search_application.jsp</result>
+		</action>
+		<!-- 创建应用信息-初始化 -->
+		<action name="createApplicationInit" class="createApplicationInitAction">
+			<result name="success">/WEB-INF/pages/application/create_application.jsp</result>
+		</action>
+		<!-- 创建应用信息 -->
+		<action name="createApplication" class="createApplicationAction">
+			<interceptor-ref name="jsonCRUDStack"></interceptor-ref>
+			<result name="input" type="json">
+				<param name="ignoreHierarchy">false</param>  
+				<param name="includeProperties">actionErrors\[\d+\], fieldErrors\..+$, actionMessages\[\d+\]</param> 
+			</result>
+		</action>
+		<!-- 删除应用信息 -->
+		<action name="deleteApplication" class="deleteApplicationAction">
+			<interceptor-ref name="jsonCRUDStack"></interceptor-ref>
+			<result name="input" type="json">
+				<param name="ignoreHierarchy">false</param>  
+				<param name="includeProperties">actionErrors\[\d+\], fieldErrors\..+$, actionMessages\[\d+\]</param> 
+			</result>
+		</action>
+		<!-- 更新应用信息-初始化 -->
+		<action name="updateApplicationInit" class="updateApplicationInitAction">
+			<result name="success">/WEB-INF/pages/application/update_application.jsp</result>
+		</action>
+		
+		<!-- applicationContact信息 -->
+		<!-- 查询联系人信息 -->
+		<action name="searchApplicationContact" class="searchApplicationContactAction">
+			<result name="success">/WEB-INF/pages/application/search_application_contact.jsp</result>
+		</action>
+		<!-- 创建联系人信息-初始化 -->
+		<action name="createApplicationContactInit" class="createApplicationContactInitAction">
+			<result name="success">/WEB-INF/pages/application/create_application_contact.jsp</result>
+		</action>
+		<!-- 创建联系人信息 -->
+		<action name="createApplicationContact" class="createApplicationContactAction">
+			<interceptor-ref name="jsonCRUDStack"></interceptor-ref>
+			<result name="input" type="json">
+				<param name="ignoreHierarchy">false</param>  
+				<param name="includeProperties">actionErrors\[\d+\], fieldErrors\..+$, actionMessages\[\d+\]</param> 
+			</result>
+		</action>
+		<!-- 删除联系人信息 -->
+		<action name="deleteApplicationContact" class="deleteApplicationContactAction">
+			<interceptor-ref name="jsonCRUDStack"></interceptor-ref>
+			<result name="input" type="json">
+				<param name="ignoreHierarchy">false</param>  
+				<param name="includeProperties">actionErrors\[\d+\], fieldErrors\..+$, actionMessages\[\d+\]</param> 
+			</result>
+		</action>
+		<!-- 更新联系人信息-初始化 -->
+		<action name="updateApplicationContactInit" class="updateApplicationContactInitAction">
+			<result name="success">/WEB-INF/pages/application/update_application_contact.jsp</result>
+		</action>
+	</package>
+</struts>

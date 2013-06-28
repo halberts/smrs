@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="security" extends="console" namespace="/security">
+		<!-- group --> 
+		
+		<action name="searchRoleJson" class="searchRoleJsonAction">
+			<interceptor-ref name="jsonCRUDStack" />
+			<result name="success" type="json">
+				<param name="ignoreHierarchy">false</param>
+				<param name="excludeProperties">.Service,pager.records\[\d+\]\.resources,pager.records\[\d+\]\.users </param>
+			</result>
+		</action>
+		<action name="searchUserInGroup" class="searchUserInGroupAction">
+			<interceptor-ref name="jsonCRUDStack" />
+			<result name="success" type="json">
+				<param name="ignoreHierarchy">false</param>
+				<param name="excludeProperties">.Service,pager.records\[\d+\]\.departments,pager.records\[\d+\]\.roles </param>
+			</result>
+		</action>
+		<action name="searchRoleInGroup" class="searchRoleInGroupAction">
+			<interceptor-ref name="jsonCRUDStack" />
+			<result name="success" type="json">
+				<param name="ignoreHierarchy">false</param>
+				<param name="excludeProperties">.Service,pager.records\[\d+\]\.resources,pager.records\[\d+\]\.users </param>
+			</result>
+		</action>
+		<action name="searchUserToAddGroupInit" class="searchUserToAddGroupInitAction">
+			<result name="success">/WEB-INF/pages/security/search_user_to_add_group.jsp</result>
+		</action>
+		<action name="deleteRoleFromGroup" class="deleteRoleFromGroupAction">
+			<result name="input">/WEB-INF/pages/security/add_role_to_group.jsp</result>
+		</action>
+		<action name="deleteUserFromGroup" class="deleteUserFromGroupAction">
+			<result name="input">/WEB-INF/pages/security/add_user_to_group.jsp</result>
+		</action>
+		<action name="addUserToGroupInit" class="addUserToGroupInitAction">
+			<result name="success">/WEB-INF/pages/security/add_user_to_group.jsp</result>
+		</action>
+		<action name="addUserToGroup" class="addUserToGroupAction"> 
+			<result name="input">/WEB-INF/pages/security/add_user_to_group.jsp</result>
+		</action>
+		<action name="addAdminToGroupInit" class="addAdminToGroupInitAction">
+			<result name="success">/WEB-INF/pages/security/add_admin_to_group.jsp</result>
+		</action>
+		<action name="addAdminToGroup" class="AddAdminToGroupAction">
+			<result name="input">/WEB-INF/pages/security/add_admin_to_group.jsp</result>
+		</action>
+		<action name="addRoleToGroupInit" class="addRoleToGroupInitAction">
+			<result name="success">/WEB-INF/pages/security/add_role_to_group.jsp</result>
+		</action>
+		<action name="addRoleToGroup" class="addRoleToGroupAction">
+			<result name="input">/WEB-INF/pages/security/add_role_to_group.jsp</result>
+		</action>
+		<action name="searchGroup" class="searchGroupAction">
+			<result name="success">/WEB-INF/pages/security/search_group.jsp</result>
+		</action>
+		<action name="createGroupInit" class="createGroupInitAction">
+			<result name="success">/WEB-INF/pages/security/create_group.jsp</result>
+		</action>
+		<action name="createGroup" class="createGroupAction"> 
+			<result name="input">/WEB-INF/pages/security/create_group.jsp</result>
+		</action> 
+		<action name="deleteGroup" class="deleteGroupAction">
+			<result name="input">/WEB-INF/pages/security/search_group.jsp</result>
+		</action>
+		<action name="updateGroupInit" class="updateGroupInitAction">
+			<result name="success">/WEB-INF/pages/security/update_group.jsp</result>
+		</action>
+		<action name="updateGroup" class="updateGroupAction"> 
+			<result name="input">/WEB-INF/pages/security/update_group.jsp</result>
+		</action> 
+		<action name="addAdminToGroup" class="addAdminToGroupAction"> 
+			<result name="input">/WEB-INF/pages/security/add_user_to_group.jsp</result>
+		</action>  
+		<action name="deleteAdminFromGroup" class="deleteAdminFromGroupAction"> 
+			<result name="input">/WEB-INF/pages/security/add_user_to_group.jsp</result>
+		</action>
+		<action name="searchAdminInGroup" class="searchAdminInGroupAction">  
+			<result name="success">/WEB-INF/pages/security/search_admin_of_group.jsp</result>
+		</action>
+		<!-- <action name="searchUserInGroup" class="searchUserInGroupAction">  
+			<result name="success">/WEB-INF/pages/security/search_user_of_group.jsp</result>
+		</action> -->
+		<!-- <action name="searchRoleInGroup" class="searchRoleInGroupAction">  
+			<result name="success">/WEB-INF/pages/security/search_role_of_group.jsp</result>
+		</action> -->
+		<!-- users -->
+		<action name="viewUser" class="viewUserAction">
+			<result name="success">/WEB-INF/pages/security/view_user.jsp</result>
+		</action>
+		<action name="createUserInit" class="createUserInitAction">
+			<result name="success">/WEB-INF/pages/security/create_user.jsp</result>
+			<result name="input">/WEB-INF/pages/security/create_user.jsp</result>
+		</action>
+		<action name="createUser" class="createUserAction">
+			<interceptor-ref name="jsonCRUDStack"></interceptor-ref>
+			<result name="input" type="json">
+				<param name="ignoreHierarchy">false</param>
+				<param name="includeProperties">actionErrors\[\d+\], fieldErrors\..+$,actionMessages\[\d+\]</param>
+			</result>
+		</action>
+		<action name="updateUserInit" class="updateUserInitAction">
+			<result>/WEB-INF/pages/security/update_user.jsp</result>
+		</action>
+		<action name="updateUser" class="updateUserAction">
+			<!--  
+			<interceptor-ref name="jsonCRUDStack"></interceptor-ref>
+			<result name="input" type="json">
+				<param name="ignoreHierarchy">false</param>
+				<param name="includeProperties">actionErrors\[\d+\], fieldErrors\..+$,actionMessages\[\d+\]</param>
+			</result>
+			-->
+			<result name="success">/WEB-INF/pages/security/update_user.jsp</result>
+			<result name="input">/WEB-INF/pages/security/update_user.jsp</result>
+			
+		</action>
+		<action name="updatePasswordInit" class="updatePasswordInitAction">
+			<interceptor-ref name="noPasswordTipStack" />
+			<result name="success">/WEB-INF/pages/security/update_password.jsp</result>
+			<result name="input">/WEB-INF/pages/security/update_password.jsp</result>
+		</action>
+		<action name="updatePassword" class="updatePasswordAction">
+			<interceptor-ref name="noPasswordTipStack" />
+			<result name="input">/WEB-INF/pages/security/update_password.jsp</result>
+			<result name="success" type="redirect">/security/viewUser.action</result>
+		</action>
+		<action name="resetPasswordInit" class="resetPasswordInitAction">
+			<result name="success">/WEB-INF/pages/security/reset_password.jsp</result>
+		</action>
+		<action name="resetPassword" class="resetPasswordAction">
+			<interceptor-ref name="jsonCRUDStack" />
+			<result name="input" type="json">
+				<param name="ignoreHierarchy">false</param>
+				<param name="includeProperties">actionErrors\[\d+\], fieldErrors\..+$,actionMessages\[\d+\]</param>
+			</result>
+		</action>
+		<action name="searchUser" class="searchUserAction">
+			<result name="success">/WEB-INF/pages/security/search_user.jsp</result>
+		</action>
+		<action name="searchUserJsonInit">
+			<result name="success">/WEB-INF/pages/security/search_user_ajax.jsp</result>
+
+			
+		</action>
+		<action name="searchUserJson" class="searchUserJsonAction">
+			<interceptor-ref name="jsonCRUDStack" />
+			<result name="success" type="json">
+				<param name="ignoreHierarchy">false</param>
+				<param name="excludeProperties">.Service,pager.records\[\d+\]\.departments,pager.records\[\d+\]\.roles </param>
+			</result>
+		</action>
+		
+		<!-- hop图形报表跳转 -->
+		<action name="searchUserJsonAction_getChartData" class="searchUserJsonAction" method="getChartData">
+			<result name="success">/hop_chart.jsp</result>
+		</action>
+		
+		<action name="exportUserList" class="exportUserListAction">
+			<result type="httpheader">
+				<param name="status">200</param>
+			</result>
+		</action>
+		<action name="deleteUser" class="deleteUserAction">
+			<result name="success">/WEB-INF/pages/security/search_user.jsp</result>
+		</action>
+		<action name="loginInit">
+			<interceptor-ref name="defaultStack" />
+			<result>/WEB-INF/pages/login.jsp</result>
+		</action>
+		<action name="login" class="loginAction">
+			<interceptor-ref name="defaultStack" />
+			<result type="redirect">/index.jsp</result>
+			<result name="input">/WEB-INF/pages/login.jsp</result>
+			<result name="redirectURL" type="redirect">${redirectURL}</result>
+		</action>
+		<action name="logout" class="logoutAction">
+			<interceptor-ref name="defaultStack" />
+			<result type="redirect">/security/loginInit.action</result>
+		</action>
+		<!-- roles -->
+		<action name="searchRole" class="searchRoleAction">
+			<result>/WEB-INF/pages/security/search_role.jsp</result>
+		</action>
+		<action name="viewRole" class="viewRoleAction">
+			<result>/WEB-INF/pages/security/view_role.jsp</result>
+		</action>
+		<action name="updateRoleInit" class="updateRoleInitAction">
+			<result>/WEB-INF/pages/security/update_role.jsp</result>
+		</action>
+		<action name="updateRole" class="updateRoleAction">
+			<interceptor-ref name="jsonCRUDStack" />
+			<result name="input" type="json">
+				<param name="ignoreHierarchy">false</param>
+				<param name="includeProperties">actionErrors\[\d+\], fieldErrors\..+$,actionMessages\[\d+\]</param>
+			</result>
+		</action>
+		<action name="displayResourceTree" class="displayResourceTreeAction">
+			<interceptor-ref name="jsonCRUDStack" />
+			<result type="json">
+				<param name="root">nodes</param>
+			</result>
+		</action>
+		<action name="deleteRole" class="deleteRoleAction">
+			<result>/WEB-INF/pages/security/search_role.jsp</result>
+		</action>
+		<action name="createRoleInit" class="createRoleInitAction">
+			<result name="success">/WEB-INF/pages/security/create_role.jsp</result>
+		</action>
+		<action name="createRole" class="createRoleAction">
+			<result name="input" type="json">
+				<param name="ignoreHierarchy">false</param>
+				<param name="includeProperties">actionErrors\[\d+\], fieldErrors\..+$,actionMessages\[\d+\]</param>
+			</result>
+		</action>
+		<action name="showResource" class="showSearchResourceAction">
+			<result name="success">/WEB-INF/pages/security/create_role.jsp</result>
+		</action>
+		<action name="showRoleResource" class="showUpdateResourceAction">
+			<result name="success">/WEB-INF/pages/security/update_role_resource.jsp
+			</result>
+		</action>
+		<!-- resource -->
+		<action name="createResourceInit" class="createResourceInitAction">
+			<result name="success">/WEB-INF/pages/security/create_resource.jsp
+			</result>
+		</action>
+
+		<action name="createResource" class="createResourceAction">
+			<result name="input" type="json">
+				<param name="ignoreHierarchy">false</param>
+				<param name="includeProperties">actionErrors\[\d+\], fieldErrors\..+$,actionMessages\[\d+\]</param>
+			</result>
+		</action>
+
+		<action name="searchResource" class="searchResourceAction">
+			<result name="success">/WEB-INF/pages/security/search_resource.jsp
+			</result>
+			<result name="input">/WEB-INF/pages/security/search_resource.jsp
+			</result>
+		</action>
+
+		<action name="updateResourceInit" class="updateResourceInitAction">
+			<result name="success">/WEB-INF/pages/security/update_resource.jsp
+			</result>
+		</action>
+
+		<action name="updateResource" class="updateResourceAction">
+			<interceptor-ref name="jsonCRUDStack"></interceptor-ref>
+			<result name="input" type="json">
+				<param name="ignoreHierarchy">false</param>
+				<param name="includeProperties">actionErrors\[\d+\], fieldErrors\..+$,actionMessages\[\d+\]</param>
+			</result>
+		</action>
+
+		<action name="deleteResource" class="deleteResourceAction">
+			<result name="success">/WEB-INF/pages/security/search_resource.jsp
+			</result>
+		</action>
+		
+		<action name="leftMenu" class="securityLeftMenuAction">
+			<result name="success">/WEB-INF/pages/security/left_menu.jsp
+			</result>
+		</action>
+
+		<action name="resourceTree" class="resourceTreeAction">
+			<interceptor-ref name="jsonCRUDStack" />
+			<result type="json">
+				<param name="root">nodes</param>
+			</result>
+		</action>
+
+		<action name="expandingResourceTree" class="expandingResourceTreeAction">
+			<interceptor-ref name="jsonCRUDStack" />
+			<result type="json">
+				<param name="root">nodes</param>
+			</result>
+		</action>
+		<action name="retrievePassword" class="retrievePasswordAction">
+        <interceptor-ref name="defaultStack"/> 
+			<result name="input">/WEB-INF/pages/security/retrieve_password.jsp</result> 	   
+		</action>
+		<action name="retrieveUpdatePassword" class="retrieveUpdatePasswordAction">
+        <interceptor-ref name="defaultStack"/> 
+        	<result name="input">/WEB-INF/pages/security/retrieve_update_password.jsp</result>
+			<result name="success">/WEB-INF/pages/security/retrieve_update_password.jsp</result> 		   
+		</action>
+		<action name="toRetrieveUpdatePassword" class="toRetrieveUpdatePasswordAction">
+        	<interceptor-ref name="defaultStack"/> 
+			<result name="success">/WEB-INF/pages/security/retrieve_update_password.jsp</result> 		   
+		</action>
+		<action name="retrieveUserPassword">
+        	<interceptor-ref name="defaultStack"/> 
+			<result>/WEB-INF/pages/security/retrieve_password.jsp</result> 		   
+		</action>
+	</package>
+</struts>

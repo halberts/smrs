@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+   <group_info ID="99999901" NAME="管理权限组" DESCRIPTION="管理权限组描述"/>  
+   <group_info ID="99999902" NAME="TESTUPDATEGROUP_NAMEEXISTED" DESCRIPTION="TESTUPDATEGROUP_NAMEEXISTED描述"/>  
+</dataset>

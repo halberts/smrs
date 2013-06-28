@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jms="http://www.springframework.org/schema/jms"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms.xsd">
+    
+	<!-- <bean id="topicTemplate" class="org.springframework.jms.core.JmsTemplate">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="pubSubDomain" value="true" />
+	</bean>
+	<bean id="queueTemplate" class="org.springframework.jms.core.JmsTemplate">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="pubSubDomain" value="false" />
+	</bean> -->
+	
+	<!-- XStream -->
+	<bean id="xstream" class="com.thoughtworks.xstream.XStream">
+		<constructor-arg index="0" type="com.thoughtworks.xstream.io.HierarchicalStreamDriver">
+			<bean class="com.thoughtworks.xstream.io.xml.DomDriver" />
+		</constructor-arg>
+		<property name="mode" value="1001" />
+	</bean>
+	
+	<!-- EXCapture Sender -->
+	<bean id="exCaptureMsgSender" class="com.haier.openplatform.hmc.sender.SendMsgService" lazy-init="true">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="defaultDestinationName" value="monitor.queue.exceptionCapture" />
+		<property name="messageConverter" ref="exCaptureMsgConverter" />
+		<property name="explicitQosEnabled" value="true" />
+		<property name="deliveryMode" value="2" />
+		<property name="priority" value="4" />
+		<property name="timeToLive" value="300000" />
+		<property name="pubSubDomain" value="false" />
+	</bean>
+	<!-- Exception Capture :: Converter -->	
+	<bean id="exCaptureMsgConverter" class="com.haier.openplatform.console.converter.ExCaptureMsgConvert">
+			<property name="xstream" ref="xstream" />
+	</bean>
+	<!-- Email Sender -->
+	<bean id="emailSender" class="com.haier.openplatform.hmc.sender.email.SendEmailService" lazy-init="true">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="emailVerifyStrategy" ref="emailVerifyStrategy" />
+		<property name="defaultDestinationName" value="hmc.queue.email" />
+		<property name="messageConverter" ref="emailMessageConverter" />
+		<property name="explicitQosEnabled" value="true" />
+		<property name="deliveryMode" value="2" />
+		<property name="priority" value="4" />
+		<property name="timeToLive" value="300000" />
+		<property name="pubSubDomain" value="false" />
+	</bean>
+	<!-- SMS Sender -->
+	<bean id="smsSender" class="com.haier.openplatform.hmc.sender.SendMsgService" lazy-init="true">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="defaultDestinationName" value="hmc.queue.sms" />
+		<property name="messageConverter" ref="sMSMessageConverter" />
+		<property name="explicitQosEnabled" value="true" />
+		<property name="deliveryMode" value="2" />
+		<property name="priority" value="4" />
+		<property name="timeToLive" value="300000" />
+		<property name="pubSubDomain" value="false" />
+	</bean>
+	
+	<!-- Converters -->
+	<bean id="emailMessageConverter" class="com.haier.openplatform.hmc.converter.EmailMessageConverter">
+		<property name="xstream" ref="xstream" />
+	</bean>
+	<bean id="sMSMessageConverter" class="com.haier.openplatform.hmc.converter.SMSMessageConverter">
+		<property name="xstream" ref="xstream" />
+	</bean>
+
+	<!-- Email filter -->
+	<bean id="emailAttachmentFilter1" class="com.haier.openplatform.hmc.sender.email.EmailAttachmentFilter">
+		<property name="from" value="0" />
+		<property name="to" value="4" />
+		<property name="length" value="10485760" />
+	</bean>
+	<bean id="emailAttachmentFilter2" class="com.haier.openplatform.hmc.sender.email.EmailAttachmentFilter">
+		<property name="from" value="5" />
+		<property name="to" value="9" />
+		<property name="length" value="3145728" />
+	</bean>
+	<bean id="emailAttachmentFilter3" class="com.haier.openplatform.hmc.sender.email.EmailAttachmentFilter">
+		<property name="from" value="10" />
+		<property name="to" value="29" />
+		<property name="length" value="2097152" />
+	</bean>
+	<bean id="emailAttachmentFilter4" class="com.haier.openplatform.hmc.sender.email.EmailAttachmentFilter">
+		<property name="from" value="30" />
+		<property name="to" value="200" />
+		<property name="length" value="1048576" />
+	</bean>
+	<bean id="emailVerifyStrategy" class="com.haier.openplatform.hmc.sender.email.EmailVerifyStrategy">
+		<property name="totalRecipient" value="200" />
+		<property name="filterList">
+			<list>
+				<ref bean="emailAttachmentFilter1" />
+				<ref bean="emailAttachmentFilter2" />
+				<ref bean="emailAttachmentFilter3" />
+				<ref bean="emailAttachmentFilter4" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- Invoke Sum Capture :: Converter -->	
+	<bean id="invokeSumConverter" class="com.haier.openplatform.console.converter.InvokeSumConvert">
+		<property name="xstream" ref="xstream" />
+	</bean>
+	<!-- Invoke Sum Capture :: Sender -->
+	<bean id="invokeSumSender" class="com.haier.openplatform.hmc.sender.SendMsgService">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="defaultDestinationName" value="monitor.queue.invokeSumCapture" />
+		<property name="messageConverter" ref="invokeSumConverter" />
+		<property name="explicitQosEnabled" value="true" />
+		<property name="deliveryMode" value="2" />
+		<property name="priority" value="4" />
+		<property name="timeToLive" value="300000" />
+		<property name="pubSubDomain" value="false" />
+	</bean>
+	
+	<!-- jdbcConnTracker :: Converter 
+	<bean id="jdbcConnTrackerConverter" class="com.haier.openplatform.console.converter.JdbcConnTrackerConverter">
+		<property name="xstream" ref="xstream" />
+	</bean>
+	-->
+	<!-- jdbcConnTracker :: Sender 准备废弃掉
+	<bean id="jdbcConnTrackerSender" class="com.haier.openplatform.hmc.sender.SendMsgService">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="defaultDestinationName" value="monitor.queue.jdbcConnectionTracker" />
+		<property name="messageConverter" ref="jdbcConnTrackerConverter" />
+		<property name="explicitQosEnabled" value="true" />
+		<property name="deliveryMode" value="2" />
+		<property name="priority" value="4" />
+		<property name="timeToLive" value="300000" />
+		<property name="pubSubDomain" value="false" />
+	</bean>	
+	-->
+	<!-- action监控 :: Convert hop1.4.10-->
+	<bean id="HOP_ProfileConverter" class="com.haier.openplatform.console.converter.ProfileConverter">
+		<property name="xstream" ref="xstream" />
+	</bean>
+	<!-- action监控 :: Sender hop1.4.10-->
+	<bean id="HOP_ActionTraceSender" class="com.haier.openplatform.hmc.sender.SendMsgService">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="defaultDestinationName" value="monitor.queue.actionTrace" />
+		<property name="messageConverter" ref="HOP_ProfileConverter"/>
+		<property name="explicitQosEnabled" value="true" />
+		<property name="deliveryMode" value="2" />
+		<property name="priority" value="4" />
+		<property name="timeToLive" value="300000" />
+		<property name="pubSubDomain" value="false" />
+	</bean>
+	
+	<!-- Exception Configuration :: Converter -->	
+	<bean id="exConfTopicConverter" class="com.haier.openplatform.console.converter.ExConfigureConvert">
+		<property name="xstream" ref="xstream" />
+	</bean>
+	<!-- Exception Configuration :: Sender -->
+	<bean id="exConfTopicSender" class="com.haier.openplatform.hmc.sender.SendMsgService">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="defaultDestinationName" value="monitor.topic.exceptionConfigureTopic" />
+		<property name="messageConverter" ref="exConfTopicConverter" />
+		<property name="explicitQosEnabled" value="true" />
+		<property name="deliveryMode" value="2" />
+		<property name="priority" value="4" />
+		<property name="timeToLive" value="300000" />
+		<property name="pubSubDomain" value="true" />
+	</bean>	
+</beans>

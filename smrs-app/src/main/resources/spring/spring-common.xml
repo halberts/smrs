@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:aop="http://www.springframework.org/schema/aop" 
+	   xmlns:tx="http://www.springframework.org/schema/tx" 
+	   xmlns:jee="http://www.springframework.org/schema/jee"
+	   xmlns:lang="http://www.springframework.org/schema/lang"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:task="http://www.springframework.org/schema/task"
+	   xmlns:util="http://www.springframework.org/schema/util"
+	   xsi:schemaLocation="
+     http://www.springframework.org/schema/beans 
+     http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+     http://www.springframework.org/schema/tx
+     http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+     http://www.springframework.org/schema/aop 
+     http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+     http://www.springframework.org/schema/jee 
+     http://www.springframework.org/schema/jee/spring-jee-3.1.xsd
+     http://www.springframework.org/schema/context
+     http://www.springframework.org/schema/context/spring-context-3.1.xsd
+     http://www.springframework.org/schema/lang
+     http://www.springframework.org/schema/lang/spring-lang-3.1.xsd
+     http://www.springframework.org/schema/util
+     http://www.springframework.org/schema/util/spring-util-3.1.xsd">
+     
+    <context:annotation-config />
+    <context:component-scan base-package="com.smrs" /> 
+    
+    <!-- 2.0.0.2添加quartz监控 -->
+    <!-- 
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	  	<property name="dataSource" ref="quartzDataSource" />
+	  	<property name="configLocation" value="classpath:/mybatis/sqlMapConfig.xml" />
+	  	<property name="mapperLocations" value="classpath:/mybatis/**/*Mapper.xml" />  
+	</bean>
+	 
+	<bean id="baseDAO" class="org.mybatis.spring.mapper.MapperFactoryBean" abstract="true" lazy-init="true">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	
+	<bean id="oracleSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	  	<property name="dataSource" ref="dataSource" />
+	  	<property name="configLocation" value="classpath:/mybatis/sqlMapConfig.xml" />
+	  	<property name="mapperLocations" value="classpath:/mybatis/**/*Mapper.xml" />  
+	</bean>
+	
+	<bean id="baseOracleDAO" class="org.mybatis.spring.mapper.MapperFactoryBean" abstract="true" lazy-init="true">
+		<property name="sqlSessionFactory" ref="oracleSqlSessionFactory" />
+	</bean>
+    -->
+	<!-- console-->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="mappingResources">
+			<list>
+				<value>com/smrs/security/model/UserModel.hbm.xml</value>
+                <value>com/smrs/security/model/ResourceModel.hbm.xml</value> 
+                <value>com/smrs/security/model/GroupModel.hbm.xml</value>
+                <value>com/smrs/relationship/model/CustomerModel.hbm.xml</value>
+                <value>com/smrs/goods/model/SupplierModel.hbm.xml</value>
+                <value>com/smrs/basicdata/model/StoreModel.hbm.xml</value>                 
+                <value>com/smrs/basicdata/model/ChannelModel.hbm.xml</value>
+                <value>com/smrs/basicdata/model/RegionModel.hbm.xml</value>                        
+				<value>com/smrs/basicdata/model/DictAreaModel.hbm.xml</value>    
+				<value>com/smrs/basicdata/model/DictSystemModel.hbm.xml</value> 
+				<value>com/smrs/goods/model/GoodsAttributeModel.hbm.xml</value> 
+				<value>com/smrs/goods/model/GoodsAttributeValueModel.hbm.xml</value>
+				<value>com/smrs/goods/model/GoodsCategoryModel.hbm.xml</value>
+				<value>com/smrs/goods/model/GoodsItemModel.hbm.xml</value>  
+				<value>com/smrs/goods/model/GoodsSkuAttributeModel.hbm.xml</value>  
+				<value>com/smrs/goods/model/GoodsSkuModel.hbm.xml</value> 
+				<value>com/smrs/goods/model/GoodsSkuHistoryModel.hbm.xml</value> 
+				<value>com/smrs/goods/model/GoodsSaleStoreModel.hbm.xml</value> 
+				<value>com/smrs/logtrace/model/LogTraceModel.hbm.xml</value>  
+				<!-- security 
+				<value>com/haier/openplatform/console/security/domain/User.hbm.xml</value>
+				<value>com/haier/openplatform/console/security/domain/Role.hbm.xml</value>
+				<value>com/haier/openplatform/console/security/domain/Resource.hbm.xml</value>
+				<value>com/haier/openplatform/console/security/domain/Group.hbm.xml</value>
+				<value>com/haier/openplatform/console/basic/domain/Department.hbm.xml</value>
+				<value>com/haier/openplatform/console/issue/domain/AppLists.hbm.xml</value> 
+				<value>com/haier/openplatform/console/issue/domain/BusinessAction.hbm.xml</value>
+				<value>com/haier/openplatform/console/issue/domain/BusinessService.hbm.xml</value>
+				<value>com/haier/openplatform/console/issue/domain/ExLists.hbm.xml</value>
+				<value>com/haier/openplatform/console/issue/domain/HopIssueDetail.hbm.xml</value>
+				<value>com/haier/openplatform/console/issue/domain/HopIssueDetailEx.hbm.xml</value>
+				<value>com/haier/openplatform/console/issue/domain/IssueSupporter.hbm.xml</value>
+				<value>com/haier/openplatform/console/issue/domain/IssueType.hbm.xml</value>
+				<value>com/haier/openplatform/console/issue/domain/MonitorDate.hbm.xml</value>
+				<value>com/haier/openplatform/console/issue/domain/ReleaseTracerConf.hbm.xml</value>
+				<value>com/haier/openplatform/console/issue/domain/ServiceApiStatusDetail.hbm.xml</value>
+				<value>com/haier/openplatform/console/issue/domain/ServiceTimeoutLv.hbm.xml</value>
+				<value>com/haier/openplatform/console/issue/domain/ServiceApiStatusQueue.hbm.xml</value>
+				<value>com/haier/openplatform/console/issue/domain/HopIssueQueue.hbm.xml</value>
+				<value>com/haier/openplatform/console/issue/domain/HopEmail.hbm.xml</value>
+				<value>com/haier/openplatform/console/issue/domain/HopSms.hbm.xml</value>
+				<value>com/haier/openplatform/console/issue/domain/BusinessServiceGrp.hbm.xml</value>
+				<value>com/haier/openplatform/console/issue/domain/AppServerChecke.hbm.xml</value>
+				<value>com/haier/openplatform/console/jmx/domain/HornetQ.hbm.xml</value>
+				-->
+				<!-- 健康检查 
+				<value>com/haier/openplatform/console/issue/domain/AppHealthHistory.hbm.xml</value>
+				<value>com/haier/openplatform/console/issue/domain/AppHealthUrl.hbm.xml</value>
+				-->
+			</list>
+		</property>
+		<property name="hibernateProperties" ref="hibernateProperties" />
+	</bean>
+	<!-- soa -->
+	<!-- <bean id="soasessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="soadata" />
+		</property>
+		<property name="mappingResources">
+			<list>
+				security
+			</list>
+		</property>
+		<property name="hibernateProperties" ref="hibernateProperties" />
+	</bean> -->
+	<!-- jira -->
+	<!-- 
+	<bean id="jirasessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="jiradata" />
+		</property>
+		<property name="mappingResources">
+			<list>
+				security
+			</list>
+		</property>
+		<property name="hibernateProperties" ref="jiraHibernateProperties" />
+	</bean> -->
+	<!-- 
+	<util:properties id="jiraHibernateProperties">
+		<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+		<prop key="hibernate.show_sql">true</prop>
+		<prop key="hibernate.format_sql">false</prop>
+		<prop key="hibernate.connection.SetBigStringTryClob">true</prop>
+		
+		<prop key="hibernate.cache.region.factory_class">net.sf.ehcache.hibernate.SingletonEhCacheRegionFactory</prop>
+		<prop key="hibernate.cache.use_second_level_cache">true</prop>
+		<prop key="hibernate.cache.use_query_cache">true</prop>
+		<prop key="net.sf.ehcache.configurationResourceName">/spring/cache/ehcache.xml</prop> 
+		<prop key="hibernate.max_fetch_depth">3</prop> 
+		<prop key="hibernate.jdbc.fetch_size">50</prop> 
+		<prop key="hibernate.jdbc.batch_size">10</prop>
+	</util:properties>
+	-->
+	
+	
+	<util:properties id="hibernateProperties">
+		<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+		<prop key="hibernate.show_sql">true</prop>
+		<prop key="hibernate.format_sql">false</prop>
+		<prop key="hibernate.connection.SetBigStringTryClob">true</prop>
+		<prop key="hibernate.hbm2ddl.auto">update</prop>
+		<!-- 
+		<prop key="hibernate.cache.region.factory_class">net.sf.ehcache.hibernate.SingletonEhCacheRegionFactory</prop>
+		<prop key="hibernate.cache.use_second_level_cache">true</prop>
+		<prop key="hibernate.cache.use_query_cache">true</prop>
+		<prop key="net.sf.ehcache.configurationResourceName">/spring/cache/ehcache.xml</prop> 
+		-->
+		
+		<prop key="hibernate.max_fetch_depth">3</prop> 
+		<prop key="hibernate.jdbc.fetch_size">50</prop> 
+		<prop key="hibernate.jdbc.batch_size">10</prop>
+	</util:properties>
+	<bean id="dynamicStatementBuilder" class="com.jof.framework.dao.hibernate.support.DefaultDynamicHibernateStatementBuilder">
+		<property name="fileNames">
+			<list>
+				<value>classpath*:/com/smrs/**/*-dynamic.xml</value>
+			</list>
+		</property>
+	</bean>
+	<!-- console -->
+	<bean id="baseHibernateDAO" class="com.jof.framework.dao.hibernate.BaseDAOHibernateImpl" abstract="true">
+		<property name="sessionFactory" ref="sessionFactory"/>			
+		<property name="dynamicStatementBuilder" ref="dynamicStatementBuilder" />
+	</bean>
+	<bean id="soaHibernateDAO" class="com.jof.framework.dao.hibernate.BaseDAOHibernateImpl" abstract="true">
+		<!-- <property name="sessionFactory">
+			<ref bean="soasessionFactory" />
+		</property> -->
+		<property name="dynamicStatementBuilder" ref="dynamicStatementBuilder" />
+	</bean>
+	<!-- jira -->
+	<bean id="jiraHibernateDAO" class="com.haier.openplatform.dao.hibernate.BaseDAOHibernateImpl" abstract="true">
+		<!-- <property name="sessionFactory">
+			<ref bean="jirasessionFactory" />
+		</property> -->
+		<property name="dynamicStatementBuilder" ref="dynamicStatementBuilder" />
+	</bean>
+	<bean id="baseAction" class="com.smrs.webapp.action.BaseConsoleAction" scope="prototype">
+		<property name="resourceService" ref="resourceService" />
+		<property name="userService" ref="userService" />
+		<property name="roleService" ref="roleService" />
+		<property name="logTraceService" ref="logTraceService" />
+		<property name="groupService" ref="groupService" />
+		<property name="modules" ref="modules" />
+	</bean>
+	<bean id="loginContextInterceptor" class="com.jof.framework.security.interceptor.LoginContextInterceptor">
+	</bean>
+	<bean id="defautSecurityInterceptor" class="com.smrs.webapp.interceptor.DefautSecurityInterceptor">
+		<property name="resourceService" ref="resourceService" />
+		<!-- 不被权限框架拦截的url列表 -->
+		<property name="ignoralList">
+			<list>
+				<value>/leftMenu.action</value>
+				<value>/security/leftMenu.action</value>
+				<value>/security/login.action</value>
+				<value>/security/loginInit.action</value>
+				<value>/security/logout.action</value>
+				<value>/security/resourceTree.action</value>
+				<value>/security/displayResourceTree.action</value>
+				<value>/security/expandingResourceTree.action</value>
+				
+				<value>/quartz/drawCron.action</value>
+				
+				<value>/basic/departmentTree.action</value>
+				<value>/basic/displayDepartmentTree.action</value>
+				<value>/basic/expandingDepartmentTree.action</value>
+			</list>
+		</property>
+	</bean>
+	<bean id="consoleBaseHibernateDAO" class="com.haier.openplatform.dao.hibernate.BaseDAOHibernateImpl" abstract="true">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<!-- 模块baseAction -->
+	<!-- security 模块 -->
+	<bean id="baseSecurityAction" class="com.smrs.security.webapp.action.BaseSecurityAction"
+		scope="prototype" parent="baseAction">
+	</bean>
+	<!-- 基础数据 模块 -->
+	<bean id="baseBasicAction" class="com.haier.openplatform.console.basic.webapp.action.BaseBasicAction" scope="prototype"
+		parent="baseAction">
+	</bean>
+	<bean class="com.jof.framework.util.SpringApplicationContextHolder" />
+	<!-- 模块列表 -->
+	<util:map id="modules">
+		<entry key="security" value="安全模块" />
+		<entry key="basic" value="基础数据模块" />
+	</util:map>
+	<!-- 左侧菜单模块 -->
+	<bean id="leftMenuAtion" class="com.smrs.webapp.action.LeftMenuAction" scope="prototype"
+		parent="baseAction">
+		<property name="resourceService" ref="resourceService" />
+		<property name="customizedMap">
+			<map>
+				<!-- key:namespace,value:jsp所在的文件夹名 -->
+				<!-- <entry key="security" value="security"/> -->
+			</map>
+		</property>
+	</bean>
+	<!-- 校验码 -->
+	<bean id="colorfulCheckCodeGenerator" class="com.jof.framework.checkcode.ColorfulCheckCodeGenerator">
+		<property name="height" value="28" />
+		<property name="width" value="75" />
+	</bean>
+	<bean id="alphaNumericCheckCodeTextProvider" class="com.jof.framework.checkcode.AlphaNumericCheckCodeTextProvider">
+		<property name="size" value="4" />
+	</bean>
+	<!--  
+	<bean id="checkCodeAction" class="com.haier.openplatform.checkcode.action.CheckCodeAction" scope="prototype">
+		<property name="checkCodeGenerator" ref="colorfulCheckCodeGenerator" />
+		<property name="checkCodeTextProvider" ref="alphaNumericCheckCodeTextProvider" />
+	</bean>
+	-->
+	<!-- 文件管理系统 -->
+	<bean id="fileSystemAction" class="com.smrs.webapp.action.FileSystemAction" scope="prototype"
+		parent="baseAction">
+		<property name="fileSystemManagementUrl" value="${file.system.management.url}" />
+	</bean>
+	
+	<!-- email template config -->
+	<bean id="templateEngine" class="com.haier.openplatform.template.FreemarkerTemplateEngine">
+		<property name="freeMarkerconfiguration" ref="freeMarkerconfiguration"/>
+	</bean>
+	<bean id="freeMarkerconfiguration" class="org.springframework.ui.freemarker.FreeMarkerConfigurationFactoryBean">
+		<property name="templateLoaderPath" value="classpath:/email"/>
+		<property name="freemarkerSettings">
+			<props>
+				<prop key="template_update_delay">1800</prop><!-- 模板更新延时 -->  
+				<prop key="default_encoding">UTF-8</prop> 
+				<prop key="locale">zh_CN</prop>
+				<prop key="number_format">0.######</prop>
+			</props>
+		</property>
+	</bean>
+	<bean id="emailBuilder" class="com.haier.openplatform.hmc.sender.email.DefaultEmailBuilder">
+		<property name="templateEngine" ref="templateEngine"/>
+	</bean>
+</beans>

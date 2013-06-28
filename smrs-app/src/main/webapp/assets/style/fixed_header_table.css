@@ -1,0 +1,62 @@
+table#table-body,table#table-header,table#table-footer {
+	border-spacing: 0;
+	border-collapse: collapse;
+	table-layout: fixed;
+	border: 1px solid #000;
+}
+
+table#table-body td,table#table-header th,table#table-footer td {
+	width: 100px;
+	overflow: hidden;
+	white-space: nowrap;
+}
+div#header-container, div#footer-container {
+    overflow: hidden;
+}
+div#scroll {
+	overflow: hidden;
+	max-height: 150px;
+	padding-left: 1px;
+}
+
+div#fake-scroll-container {
+	overflow: hidden;
+	position: relative;
+}
+
+div#y-fake-scroll {
+	overflow-y: scroll;
+	overflow-x: hidden;
+	background: transparent;
+	position: absolute;
+	right: 0;
+	position: absolute;
+	max-height: 149px;
+	top: 31px;
+}
+
+div#x-fake-scroll {
+	height: 40px;
+	margin-top: -23px;
+	overflow-x: auto;
+	overflow-y: hidden;
+	margin-top: expression('0px'); /* IE 7 fix*/
+	height: expression('17px'); /* IE 7 fix*/
+}
+
+div#y-scroll {
+	max-height: 150px;
+	overflow-y: auto;
+	overflow-x: hidden;
+	overflow: scroll;
+	width: 1010px;
+	padding: 0px 1px 1px 1px;
+}
+
+div#header-container {
+	padding: 1px 1px 0 1px;
+}
+
+div#footer-container {
+	padding: 0 1px;
+}

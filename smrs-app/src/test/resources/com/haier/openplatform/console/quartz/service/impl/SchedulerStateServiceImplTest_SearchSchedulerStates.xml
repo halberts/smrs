@@ -1,0 +1,4 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+  <qrtz_scheduler_state SCHED_NAME="_UNIT_TEST_SCHED_NAME" INSTANCE_NAME="_UNIT_TEST_INSTANCE_ID" LAST_CHECKIN_TIME="88888888" CHECKIN_INTERVAL="99999999"/>
+</dataset>

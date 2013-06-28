@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://jetty.mortbay.org/configure.dtd">
+<Configure class="org.eclipse.jetty.webapp.WebAppContext">
+	<!-- 应用数据源 -->
+	<New id="console" class="org.eclipse.jetty.plus.jndi.Resource">
+		<Arg>jdbc/console</Arg>
+		<Arg>
+			<New class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+				<Set name="driverClassName">oracle.jdbc.driver.OracleDriver</Set>
+				<Set name="url">jdbc:oracle:thin:@10.135.1.121:1521/OMSTEST</Set>
+				<Set name="username">console</Set>
+				<Set name="password">console</Set>
+			</New>
+		</Arg>
+	</New>
+		<!-- 应用数据源 -->
+	<New id="jira" class="org.eclipse.jetty.plus.jndi.Resource">
+		<Arg>jdbc/jira</Arg>
+		<Arg>
+			<New class="com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource">  
+		        <Set name="Url">jdbc:mysql://10.135.6.178:3306/jiradb</Set>  
+		        <Set name="User">devuser_longfei</Set>  
+		        <Set name="Password">123456</Set>  
+	    	</New>  
+		</Arg>
+	</New>
+		<New id="SOA" class="org.eclipse.jetty.plus.jndi.Resource">
+		<Arg>jdbc/soa</Arg>
+		<Arg>
+			<New class="org.springframework.jdbc.datasource.DriverManagerDataSource">  
+		       <Set name="driverClassName">oracle.jdbc.driver.OracleDriver</Set>
+				<Set name="url">jdbc:oracle:thin:@10.135.7.58:1521/SOA</Set>
+				<Set name="username">devuser_longfei</Set>
+				<Set name="password">123456</Set> 
+	    	</New>  
+		</Arg>
+	</New>
+</Configure>  

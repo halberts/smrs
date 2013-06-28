@@ -1,0 +1,36 @@
+/**
+ * 提示框样式
+ * author: infosys_vilight
+ */
+.notification {
+    background-position: 10px 11px !important;
+    background-repeat: no-repeat !important;
+    border: 1px solid;
+    font-size: 13px;
+    margin: 0 0 15px;
+    padding: 0;
+    position: relative;
+    width: 100%;
+    border-radius: 6px 6px 6px 6px;
+}
+
+.notification .close {
+    color: #990000;
+    font-size: 9px;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
+
+
+.notification div {
+    display: block;
+    font-style: normal;
+    padding: 10px 10px 10px 36px;
+}
+
+.information {
+    background: url("images/pencil.png") repeat scroll 0 0 #FFFBCC;
+    border-color: #E6DB55;
+    color: #666452;
+}

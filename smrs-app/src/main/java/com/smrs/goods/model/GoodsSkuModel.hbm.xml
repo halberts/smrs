@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.smrs.goods.model">
+
+	<class table="goods_sku" name="GoodsSkuModel">
+		<id  name="id" column="id" type="long">
+			<generator class="native" />
+		</id>	
+		<property name="name" column="name"/>
+		<property name="code" column="code"/>
+		<property name="shortName" column="short_name"/>
+		<property name="mfgSkuCode" column="mfg_sku_code"/>
+		<property name="itemId" column="item_id"/>
+		<property name="itemCode" column="item_code"/>
+
+		<property name="salesUnit" column="sales_unit"/>
+		<property name="batchFlag" column="batch_flag"/>
+		<property name="validFlag" column="valid_flag"/>
+		<property name="storageType" column="storage_type"/>
+		<property name="physicalType" column="physical_type"/>
+		
+		<property name="barCode1" column="bar_code_1"/>
+		<property name="barCode2" column="bar_code_2"/>
+		<property name="barCode3" column="bar_code_3"/>
+		<property name="supplierId" column="supplier_id"/>
+		<property name="purchasePrice" column="purchase_price"/>
+		<property name="labelPrice" column="label_price"/>
+		<property name="marketPrice" column="market_price"/>
+		<property name="costPrice" column="cost_price"/>
+
+		<property name="status" column="status"/>
+		<property name="creator" column="creator"/>
+		<property name="creationDate" column="creation_date"/>
+		<property name="modifiedBy" column="modified_by"/>
+		<property name="lastModifyDate" column="last_modify_date"/>	
+		<!--  
+		<set name="groups" table="admin_store_group_rel"  inverse="true" order-by="store_id asc">
+		  <key column="store_id"></key>
+          <many-to-many column="group_id"  class="com.smrs.security.model.GroupModel"/>   
+		</set>
+		-->	
+	</class>
+</hibernate-mapping>

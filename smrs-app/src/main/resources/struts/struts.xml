@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<constant name="struts.devMode" value="false" />
+	<constant name="struts.ui.theme" value="simple"/>
+	<constant name="struts.ognl.allowStaticMethodAccess" value="true"/>
+	<constant name="struts.custom.i18n.resources" value="messages"/>
+	
+	<constant name="struts.serve.static" value="true"/>
+	<constant name="struts.action.excludePattern" value="/remoting/.*,/ws/.*"/>
+	<constant name="struts.xwork.chaining.copyErrors" value="true"/>
+	<constant name="struts.xwork.chaining.copyFieldErrors" value="true"/>
+	<constant name="struts.xwork.chaining.copyMessages" value="true"/>
+	
+	<package name="console" extends="json-default" namespace="/">
+		<interceptors>
+            <interceptor name="loginContextInterceptor" class="loginContextInterceptor"/> 
+            <interceptor name="authenticationInterceptor" class="defautSecurityInterceptor"/>
+            <interceptor name="i18n" class="com.haier.openplatform.i18n.interceptor.I18nResolverInterceptor"/>
+            <interceptor name="passwordTipInterceptor" class="com.haier.openplatform.webapp.interceptor.PasswordTipInterceptor"/>
+           <!--  <interceptor name="actionProfileInterceptor" class="actionProfileInterceptor"/> -->
+            <interceptor-stack name="defaultStack">
+            	<!-- <interceptor-ref name="actionProfileInterceptor"/> -->
+                <interceptor-ref name="exception">
+                	<param name="logEnabled">true</param>
+           			<param name="logLevel">ERROR</param>
+                </interceptor-ref>
+                <!-- <interceptor-ref name="alias"/> -->
+                <!-- <interceptor-ref name="servletConfig"/> -->
+                <!-- <interceptor-ref name="i18n"/> -->
+                <!-- <interceptor-ref name="prepare"/> -->
+                <!-- <interceptor-ref name="chain"/> -->
+                <!-- <interceptor-ref name="debugging"/> -->
+                <!-- <interceptor-ref name="scopedModelDriven"/> -->
+                <!-- <interceptor-ref name="modelDriven"/> -->
+                <!-- <interceptor-ref name="fileUpload"/> -->
+                <!-- <interceptor-ref name="checkbox"/> -->
+                <!-- <interceptor-ref name="multiselect"/> -->
+                <!-- <interceptor-ref name="staticParams"/> -->
+                <interceptor-ref name="actionMappingParams"/>
+                <interceptor-ref name="params">
+                  <param name="excludeParams">dojo\..*,^struts\..*</param>
+                </interceptor-ref>
+                <!-- <interceptor-ref name="conversionError"/> -->
+                <interceptor-ref name="validation">
+                    <param name="excludeMethods">back,cancel,browse</param>
+                </interceptor-ref>
+                <interceptor-ref name="workflow">
+                    <param name="excludeMethods">back,cancel,browse</param>
+                </interceptor-ref>
+            </interceptor-stack>
+            <!-- Copied from struts-default.xml and changed validation exclude methods -->
+            <interceptor-stack name="crudStack">
+                 <interceptor-ref name="loginContextInterceptor"/> 
+                <interceptor-ref name="passwordTipInterceptor"/>
+                <!-- <interceptor-ref name="authenticationInterceptor"/> -->
+                <interceptor-ref name="defaultStack"/>
+            </interceptor-stack>
+            <interceptor-stack name="noPasswordTipStack">
+                 <interceptor-ref name="loginContextInterceptor"/> 
+                <!-- <interceptor-ref name="authenticationInterceptor"/> -->
+                <interceptor-ref name="defaultStack"/>
+            </interceptor-stack>
+            <interceptor-stack name="jsonCRUDStack">
+                 <interceptor-ref name="loginContextInterceptor"/> 
+                <interceptor-ref name="defaultStack"/>
+                <interceptor-ref name="validation"/>
+                <interceptor-ref name="jsonValidation"/>
+                <interceptor-ref name="workflow"/>
+            </interceptor-stack>
+        </interceptors>
+        <default-interceptor-ref name="crudStack"/>
+		<global-results>
+            <result name="login" type="redirect">/security/loginInit.action</result>
+            <result name="noAuth">/noAuth.jsp</result>
+            <result name="updatePassword" type="redirect">/security/updatePasswordInit.action</result>
+        </global-results>
+
+        <!-- <global-exception-mappings>
+            <exception-mapping exception="java.lang.Exception" result="dataAccessFailure"/>
+        </global-exception-mappings> -->
+        
+        <action name="leftMenu" class="leftMenuAtion">
+        	<result>/WEB-INF/pages/dynamic_left_menu.jsp</result><!-- 普通页面使用这种方式 -->
+        	<!-- <result >/WEB-INF/pages/dynamic_left_menu_frameset.jsp</result> --><!-- frameset方式使用这种 -->
+        	<result name="customized">/WEB-INF/pages/${namespace}/left.jsp</result>
+        </action>
+        <action name="checkCode" class="com.jof.framework.checkcode.action.CheckCodeAction">
+        	<interceptor-ref name="defaultStack"/>
+        	<result type="stream">
+				 <param name="contentType">image/jpeg</param>  
+               	 <param name="inputName">inputStream</param>  
+			</result>
+        </action> 
+        <action name="index">
+        	<result>/main.jsp</result>
+        </action>
+        <!-- 静态左侧菜单 -->
+        <action name="staticLeftMenuAction" class="com.smrs.webapp.action.StaticLeftMenuAction">
+        	<result>/WEB-INF/pages/${namespace}/left.jsp</result>
+        </action>
+		        		
+	</package>
+	<!-- security模块 -->
+	<include file="struts/security/struts-security.xml"/>
+	
+	
+	<include file="struts/struts-basic-data.xml"/>
+	
+	<include file="struts/struts-goods.xml"/>
+	
+	<include file="struts/struts-relationship.xml"/>
+	
+	<include file="struts/struts-logtrace.xml"/>
+	
+
+</struts>

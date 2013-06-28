@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:lang="http://www.springframework.org/schema/lang"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+     http://www.springframework.org/schema/beans 
+     http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+     http://www.springframework.org/schema/tx
+     http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+     http://www.springframework.org/schema/aop 
+     http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+     http://www.springframework.org/schema/jee 
+     http://www.springframework.org/schema/jee/spring-jee-3.1.xsd
+     http://www.springframework.org/schema/context
+     http://www.springframework.org/schema/context/spring-context-3.1.xsd
+     http://www.springframework.org/schema/lang
+     http://www.springframework.org/schema/lang/spring-lang-3.1.xsd
+     http://www.springframework.org/schema/util
+     http://www.springframework.org/schema/util/spring-util-3.1.xsd">
+	<!-- DAO -->
+	<bean id="resourceDAO" class="com.smrs.security.dao.impl.ResourceDAOImpl"
+		parent="baseHibernateDAO">
+	</bean>
+	<!-- Service -->
+	<bean id="resourceService"
+		class="com.smrs.security.service.impl.ResourceServiceImpl">
+		<property name="resourceDAO" ref="resourceDAO"/> 
+		<property name="groupDAO" ref="groupDAO"/>
+	</bean>
+	<!-- action -->
+	<!-- 查询资源 -->
+	<bean id="searchResourceAction"
+		class="com.smrs.security.webapp.action.SearchResourceAction" parent="baseSecurityAction" scope="prototype">
+	</bean>
+	<!-- 创建资源 -->
+	<bean id="createResourceAction"
+		class="com.smrs.security.webapp.action.CreateResourceAction" parent="baseSecurityAction" scope="prototype">
+	</bean>
+	<!-- 创建资源初始化 -->
+	<bean id="createResourceInitAction"
+		class="com.smrs.security.webapp.action.CreateResourceInitAction" parent="baseSecurityAction" scope="prototype">
+	</bean>
+	<!-- 修改资源初始化 -->
+	<bean id="updateResourceInitAction"
+		class="com.smrs.security.webapp.action.UpdateResourceInitAction" parent="baseSecurityAction" scope="prototype">
+	</bean>
+	<!-- 修改资源 -->
+	<bean id="updateResourceAction"
+		class="com.smrs.security.webapp.action.UpdateResourceAction" parent="baseSecurityAction" scope="prototype">
+	</bean>
+	<!-- 删除资源 -->
+	<bean id="deleteResourceAction"
+		class="com.smrs.security.webapp.action.DeleteResourceAction" parent="baseSecurityAction" scope="prototype">
+	</bean>
+	<!-- 资源树json -->
+	<bean id="resourceTreeAction"
+		class="com.smrs.security.webapp.action.ResourceTreeAction" parent="baseSecurityAction" scope="prototype">
+	</bean>
+	<!-- 展开资源树json -->
+	<bean id="expandingResourceTreeAction"
+		class="com.smrs.security.webapp.action.ExpandingResourceTreeAction" parent="baseSecurityAction" scope="prototype">
+	</bean>
+	<!-- 显示资源树 -->
+	<bean id="displayResourceTreeAction"
+		class="com.smrs.security.webapp.action.DisplayResourceTreeAction" parent="baseSecurityAction" scope="prototype">
+	</bean>
+	<!-- 左侧菜单 -->
+	<bean id="securityLeftMenuAction"
+		class="com.smrs.security.webapp.action.DynamicLeftMenuTreeAction" parent="baseSecurityAction" scope="prototype">
+		<property name="codeList">
+			<list>
+				<value>SECURITY</value>
+				<value>SECURITY_RESORUCE_MANAGEMENT</value>
+			</list>
+		</property>
+	</bean>
+	<!-- 模块列表 -->
+	<util:map id="modules">
+		<entry key="security" value="安全模块"/>
+		<entry key="basic" value="基础数据模块"/>
+	</util:map>
+</beans>

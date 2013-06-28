@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.smrs.security.model">
+	<class name="GroupModel" table="admin_group_info">
+		<id name="id" type="long">
+			<generator class="native" />
+		</id>  
+		<property name="description" column="DESCRIPTION"/>
+		<property name="name" column="NAME"/> 
+		
+		
+	
+		
+		<set name="users" table="admin_user_group_rel" inverse="true" order-by="group_id asc" lazy="false">
+			<key column="group_id"></key>
+			<many-to-many class="UserModel" column="user_id"/>
+		</set> 
+		
+		<set name="resources" table="admin_group_resource_rel" lazy="false">
+			<key column="group_id"></key>
+			<many-to-many class="ResourceModel" column="resource_id"/>
+		</set>
+		<!--  
+		<set name="roles" table="admin_role_group_rel">
+			<key column="group_id"></key>
+			<many-to-many class="RoleModel" column="role_id"/>
+		</set>
+		-->
+		<property name="status" column="status"/>
+		<property name="creator" column="creator"/>
+		<property name="creationDate" column="creation_date"/>
+		<property name="modifiedBy" column="modified_by"/>
+		<property name="lastModifyDate" column="last_modify_date"/>	
+	
+	</class>
+</hibernate-mapping>

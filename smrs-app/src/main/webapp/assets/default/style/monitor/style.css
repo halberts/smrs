@@ -1,0 +1,366 @@
+/* 整体框架布局（左右部分，右边固定等） */
+body {
+ 	overflow: hidden;
+}		
+		
+#bdwrapper {
+	position: absolute;
+	top: 76px;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: #EAEBFC url(images/bg.jpg) repeat center top;
+}
+
+#allcontent {
+	position: absolute;
+	top: 20px;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	
+}
+
+#leftWrapper {
+    background: transparent url(images/sidebar-shadow.png) no-repeat right top;
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	width: 137px;
+	padding: 20px 25px;
+	border-right: 1px solid #C6C9CE;
+}
+
+
+#rightWrapper {
+    background: url(images/white-70percent.png) repeat 0 0;
+    background: rgba(255,255,255, 0.7);
+    border-top: 1px solid #C6C9CE;
+    border-right: 1px solid #C6C9CE;
+	left: 188px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    top: 0;
+    width: 86%;
+   
+}
+
+#rightContent {
+	overflow-y: scroll;
+ 	height: 89%;
+}
+
+#right {
+	margin-top: 15px;
+	margin-left: 4%;
+	margin-right: 3%;
+	margin-bottom: 15px;
+	height: 100%;
+	width: 92%;
+}
+
+
+/* 左侧导航条 */
+#sidebarNav h2 {
+    background: transparent url(images/arrow-down.png) no-repeat right center;
+    color: #555;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: right;
+    text-shadow: 0 1px 0 #FFF;
+    padding-right: 25px;
+    margin-right: -25px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+#sidebarNav ul {
+    opacity: 1;
+    -moz-transition: all 0.3s ease-out;
+    -webkit-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+}
+
+#sidebarNav ul li {
+	list-style:none;
+    border-right-width: 0;
+	display: block;
+    *display: inline-block;
+	margin: 0 -25px;
+	text-align: right;
+    -o-transition: all 0.3s ease-out;
+    -ms-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -webkit-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+}
+
+
+#sidebarNav  ul li a {
+	text-decoration: none;
+	color: #46C;
+	cursor: pointer;
+	display: block;
+    *display: inline-block;
+	font-size: 13px;
+    line-height: 30px;
+	padding: 0 20px;
+	text-shadow: #FFF 0 1px 1px;
+    -o-transition: all 0.3s ease-out;
+    -ms-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -webkit-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+}
+
+
+
+#sidebarNav ul li.current {
+    background: url(images/black-20percent.png) repeat 0 0;
+    background: rgba(0,0,0,0.1);
+    border-color: #AAA;
+	-moz-box-shadow: inset 1px 1px 3px rgba(0,0,0,0.1), 0px 1px 0px rgba(255,255,255,0.5);
+	-webkit-box-shadow: inset 1px 1px 3px rgba(0,0,0,0.1), 0px 1px 0px rgba(255,255,255,0.5);
+	box-shadow: inset 1px 1px 3px rgba(0,0,0,0.1), 0px 1px 0px rgba(255,255,255,0.5);
+}
+
+#sidebarNav ul li.current a {
+	color: black;
+}
+	
+	
+.liHover {
+	background-color: #EAEBFF;
+	background-image: -o-linear-gradient(top, rgba(255,255,255,0.4), rgba(255,255,255,0.1));
+	background-image: -ms-linear-gradient(top, rgba(255,255,255,0.4), rgba(255,255,255,0.1));
+	background-image: -moz-linear-gradient(top, rgba(255,255,255,0.4), rgba(255,255,255,0.1));
+	background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.4)), to(rgba(255,255,255,0.1)));
+	background-image: -webkit-linear-gradient(top, rgba(255,255,255,0.4), rgba(255,255,255,0.1));
+	background-image: linear-gradient(top, rgba(255,255,255,0.4), rgba(255,255,255,0.1));
+	border-bottom-color: #AAA;
+	border-left-color: #AAA;
+	border-top-color: #AAA;
+	-moz-box-shadow: inset 0 -1px 3px rgba(0,0,0,0.1), 0px 0px 3px rgba(0,0,0,0.2);
+	-webkit-box-shadow: inset 0 -1px 3px rgba(0,0,0,0.1), 0px 0px 3px rgba(0,0,0,0.2);
+	box-shadow: inset 0 -1px 3px rgba(0,0,0,0.1), 0px 0px 3px rgba(0,0,0,0.2);
+    zoom: 1;
+}	
+	
+.liAHover {
+	-moz-box-shadow: inset 0 -1px 3px rgba(0,0,0,0.1), 0px 0px 3px rgba(0,0,0,0.2);
+	-webkit-box-shadow: inset 0 -1px 3px rgba(0,0,0,0.1), 0px 0px 3px rgba(0,0,0,0.2);
+	box-shadow: inset 0 -1px 3px rgba(0,0,0,0.1), 0px 0px 3px rgba(0,0,0,0.2);
+    -moz-transition-duration: 0.2s;
+    -webkit-transition-duration: 0.2s;
+    transition-duration: 0.2s;
+}	
+
+
+/* 头部面包屑 */
+.nav_outer {
+    background-color: #F6F6F6;
+    border-bottom: 1px solid #DDDDDD;
+    height: 25px;
+    line-height: 23px;
+    width: 93%;
+    margin-left: 3%;
+    margin-top: 3px;
+}
+
+ 
+.nav_new {
+    color: blue;
+    font-size: 12px;
+}
+
+
+/* 头部导航条 */
+#headerNav {
+	background-color: #ABCEEE;
+    background-image: -moz-linear-gradient(center top , #ABCEEE, #8AA8CA);
+	height: 35px;
+	padding: 0 20px;
+	position: relative;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}	
+
+#headerNav .col-2 {
+    margin-left: 168px;
+}
+
+#headerNav .col-2 ul {
+	font-size: 12px;
+	list-style: none outside none;
+}
+#headerNav .col-2 ul li {
+	-moz-transition: background 0.3s ease-out 0s;
+	float: left;
+	position: relative;
+}
+
+#headerNav .col-2 ul li a {
+	line-height: 35px;
+}
+
+#headerNav .col-2 ul a {
+	color: #333333;
+    display: block;
+    line-height: 100%;
+    padding: 0px 20px;
+    text-decoration: none;
+}
+
+#headerNav .col-2 ul a.one {
+	background-color: #ABCEEE;
+    background-image: -moz-linear-gradient(#AABBCC, rgba(234, 238, 243, 0.2) 10%, #ABCEEE), -moz-linear-gradient(left center , #AABBCC, #ABCEEE 3%, #ABCEEE 97%, #AABBCC);
+	box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+}
+
+#headerNav .col-2 ul a.one:hover {
+  background-color: #F8F8F8;
+  background-image: -moz-linear-gradient(#DBDBDB, rgba(234, 238, 243, 0.2) 10%, #F8F8F8), -moz-linear-gradient(left center , #DBDBDB, #F8F8F8 3%, #F8F8F8 97%, #DBDBDB);
+}
+
+#headerNav .col-2 ul li:hover {
+    background-color: #F8F8F8;
+    background-image: -moz-linear-gradient(#DBDBDB, rgba(234, 238, 243, 0.2) 10%, #F8F8F8), -moz-linear-gradient(left center , #DBDBDB, #F8F8F8 3%, #F8F8F8 97%, #DBDBDB);
+}
+#headerNav .col-2 ul li:hover a {
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+    color: #F85300;
+    text-shadow: none;
+   
+}
+
+.header {
+	background: url("images/groovepaper.png") repeat scroll 0 0 #FEFEFE;
+	border-bottom: 1px solid #CCCCCC;
+    box-shadow: 0 -3px 4px rgba(0, 0, 0, 0.1) inset;
+    height: 45px;
+} 
+ 
+#headerNav .col-1{ 
+	margin-top: 5px;
+	margin-left: 55px;
+	font-size:18px; 
+	font-family:Arial, Helvetica, sans-serif; 
+	color:#666666;
+} 
+
+
+
+
+
+/* 页脚 */
+#footer {
+ 	margin-left: 3%;
+    margin-right: 3%;
+    width: 92%;
+    border-top: 1px solid #DDDDDD;
+    padding-top: 5px;
+    text-align: center;
+}
+
+
+/* 公共布局样式 */	
+.tabWidth {
+	width: 1015px;
+}
+
+.tabHeight {
+	Height: 425px;
+}
+
+.marginLeftTop {
+	margin-left: 5px;
+	margint-top: 5px;
+}
+
+.spanMarginLeft {
+	margin-left: 10px;
+}
+
+.floatLeft {
+	float: left;
+	margin-right: 50px;
+}
+
+
+.desc {
+	color: rgb(225, 112, 9);
+}
+
+.marginTop {
+	margin-top: 10px;
+}
+
+
+/* jquery-ui 样式自字义 */
+button.ui-button:hover {
+	background: #FDF5CE;
+	border:1px solid #FBCB09; 
+	
+}
+
+table.ui-widget td {
+	padding: 5px;
+	width: 90px;
+}
+
+
+
+/* time ul 横向时间选择 */
+ul.inline-ul{
+	padding: 0px;
+}
+
+
+ul.inline-ul li {
+	list-style: none outside none;
+    float: left;
+    margin: 1px 10px 1px 0px;
+}
+
+ul.inline-ul li span {
+	cursor: pointer;
+}
+
+ul.inline-ul li span:hover {
+	color: #FF5500;
+	text-decoration: underline;
+}
+
+ul.inline-ul li span.current {
+	color: #FF5500;
+}
+
+
+/**
+ * release-track 结果框列表
+ */
+.selectlist-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.selectlist-item {
+	/* Icon from http://pinvoke.com/ */
+	background: #fff url(images/cross-circle.png) no-repeat right center;
+	border-left: solid 1px #eee;
+	border-top: solid 1px #eee;
+	border-right: solid 2px #ccc;
+	border-bottom: solid 2px #ccc;
+	cursor: pointer;
+	padding: 0.2em 23px 0.2em 0.3em;
+	margin: 1px 0;
+	float: left;
+}
+
+
+
+  

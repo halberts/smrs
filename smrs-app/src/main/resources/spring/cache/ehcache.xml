@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+         xsi:noNamespaceSchemaLocation="ehcache.xsd"  
+         updateCheck="false" monitoring="autodetect"  
+         dynamicConfig="true" name="${server.name}">  
+     
+    <cacheManagerEventListenerFactory class="" properties=""/>  
+  
+    <terracottaConfig url="${terracotta.server}" rejoin="true"/> <!--terracotta服务器配置,默认端口为9510,多个服务器用,分隔  -->  
+  
+    <defaultCache  
+           maxEntriesLocalHeap="10000"  
+           eternal="false"  
+           overflowToDisk="false"  
+           timeToIdleSeconds="300"  
+           timeToLiveSeconds="600"
+           maxElementsInMemory="10000"
+           maxElementsOnDisk="10000"
+           copyOnRead="true">
+           <terracotta clustered="true"> <!-- 开启集群 -->  
+           	   <nonstop immediateTimeout="false" timeoutMillis="3000">
+			       <timeoutBehavior type="noop" />
+			   </nonstop>
+           </terracotta>
+    </defaultCache>  
+       
+       <!-- maxBytesLocalHeap="200M" -->
+    <cache name="user"    
+            eternal="false"  
+            overflowToDisk="false"  
+            timeToIdleSeconds="600"  
+            timeToLiveSeconds="600"  
+            memoryStoreEvictionPolicy="LRU"  
+            maxElementsInMemory="100000" 
+            maxElementsOnDisk="100000"  
+            copyOnRead="true">  
+    <terracotta clustered="true">
+    	<nonstop immediateTimeout="false" timeoutMillis="3000">
+		    <timeoutBehavior type="noop" />
+		</nonstop>
+    </terracotta>    
+    </cache>  
+  
+  	<cache name="role"    
+            eternal="false"  
+            overflowToDisk="false"  
+            timeToIdleSeconds="1800"  
+            timeToLiveSeconds="1800"  
+            memoryStoreEvictionPolicy="LRU"  
+            maxElementsInMemory="100000" 
+            maxElementsOnDisk="100000"  
+            copyOnRead="true">  
+    <terracotta clustered="true">
+    	<nonstop immediateTimeout="false" timeoutMillis="3000">
+		    <timeoutBehavior type="noop" />
+		</nonstop>
+    </terracotta>    
+    </cache>
+    
+    <cache name="resource"    
+            eternal="false"  
+            overflowToDisk="false"  
+            timeToIdleSeconds="1800"  
+            timeToLiveSeconds="1800"  
+            memoryStoreEvictionPolicy="LRU"  
+            maxElementsInMemory="100000" 
+            maxElementsOnDisk="100000"
+            copyOnRead="true">  
+    <terracotta clustered="true">
+    	<nonstop immediateTimeout="false" timeoutMillis="3000">
+		    <timeoutBehavior type="noop" />
+		</nonstop>
+    </terracotta>    
+    </cache>
+    
+    <cache name="session"    
+            eternal="false"  
+            overflowToDisk="false"  
+            timeToIdleSeconds="1800"  
+            timeToLiveSeconds="1800"  
+            memoryStoreEvictionPolicy="LRU"  
+            maxElementsInMemory="100000" 
+            maxElementsOnDisk="100000"  
+            copyOnRead="true">  
+    <terracotta clustered="true">
+    	<nonstop immediateTimeout="false" timeoutMillis="3000">
+		    <timeoutBehavior type="noop" />
+		</nonstop>
+    </terracotta>    
+    </cache>
+    
+    <!-- 查询缓存获取应用超时排名前10的API -->
+    <cache name="issue.app.overtime.top10"
+    		eternal="false"  
+            overflowToDisk="false"  
+            timeToIdleSeconds="600"  
+            timeToLiveSeconds="600"  
+            memoryStoreEvictionPolicy="LRU"  
+            maxElementsInMemory="1000" 
+            maxElementsOnDisk="1000"  
+            copyOnRead="true">  
+    <terracotta clustered="true">
+    	<nonstop immediateTimeout="false" timeoutMillis="3000">
+		    <timeoutBehavior type="noop" />
+		</nonstop>
+    </terracotta>    
+    </cache>
+    <!-- 查询应用负责人，缓存30分钟 -->
+    <cache name="issue.app.appissuesupporter"
+    		eternal="false"  
+            overflowToDisk="false"  
+            timeToIdleSeconds="3000"  
+            timeToLiveSeconds="3000"  
+            memoryStoreEvictionPolicy="LRU"  
+            maxElementsInMemory="1000" 
+            maxElementsOnDisk="1000"  
+            copyOnRead="true">  
+	    <terracotta clustered="true">
+	    	<nonstop immediateTimeout="false" timeoutMillis="3000">
+			    <timeoutBehavior type="noop" />
+			</nonstop>
+	    </terracotta>    
+    </cache>
+    <cache name="issue.report.getAllApiOvertimeTopTen"
+    		eternal="false"  
+            overflowToDisk="false"  
+            timeToIdleSeconds="600"  
+            timeToLiveSeconds="600"  
+            memoryStoreEvictionPolicy="LRU"  
+            maxElementsInMemory="1000" 
+            maxElementsOnDisk="1000"  
+            copyOnRead="true">  
+	    <terracotta clustered="true">
+	    	<nonstop immediateTimeout="false" timeoutMillis="3000">
+			    <timeoutBehavior type="noop" />
+			</nonstop>
+	    </terracotta>    
+    </cache>
+    <cache name="issue.report.getAppOvertimeTopTen"
+    		eternal="false"  
+            overflowToDisk="false"  
+            timeToIdleSeconds="600"  
+            timeToLiveSeconds="600"  
+            memoryStoreEvictionPolicy="LRU"  
+            maxElementsInMemory="1000" 
+            maxElementsOnDisk="1000"  
+            copyOnRead="true">  
+	    <terracotta clustered="true">
+	    	<nonstop immediateTimeout="false" timeoutMillis="3000">
+			    <timeoutBehavior type="noop" />
+			</nonstop>
+	    </terracotta>    
+    </cache>
+    
+    <!-- 应用个数变化趋势缓存，缓存5小时 -->
+    <cache name="appSummary"
+    		eternal="false"  
+            overflowToDisk="false"  
+            timeToIdleSeconds="18000"  
+            timeToLiveSeconds="18000"  
+            memoryStoreEvictionPolicy="LRU"  
+            maxElementsInMemory="1000" 
+            maxElementsOnDisk="1000"  
+            copyOnRead="true">  
+	    <terracotta clustered="true">
+	    	<nonstop immediateTimeout="false" timeoutMillis="3000">
+			    <timeoutBehavior type="noop" />
+			</nonstop>
+	    </terracotta>    
+    </cache>
+	<!-- 应用监控负责人信息（所有）,缓存1小时 -->
+	<cache name="appIssueSupporterList"
+    		eternal="false"  
+            overflowToDisk="false"  
+            timeToIdleSeconds="3600"  
+            timeToLiveSeconds="3600"  
+            memoryStoreEvictionPolicy="LRU"  
+            maxElementsInMemory="1000" 
+            maxElementsOnDisk="1000"  
+            copyOnRead="true">  
+	    <terracotta clustered="true">
+	    	<nonstop immediateTimeout="false" timeoutMillis="3000">
+			    <timeoutBehavior type="noop" />
+			</nonstop>
+	    </terracotta>    
+    </cache>
+</ehcache>  

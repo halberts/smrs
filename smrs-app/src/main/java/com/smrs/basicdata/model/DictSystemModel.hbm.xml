@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.smrs.basicdata.model">
+	<class table="DICT_SYSTEM" name="DictSystemModel">
+		<id  name="dictId" column="dict_id" type="java.lang.String">
+			<generator class="assigned" />
+		</id>
+		<property name="name" column="name"/>
+		
+		<property name="dictType" column="dict_type"/>
+		<property name="dictDesc" column="dict_desc"/>
+		<property name="dictValue" column="dict_value"/>
+		<property name="dictOrder" column="dict_order"/>   	
+		
+			
+			
+		<property name="currentLevel" column="currentLevel"/>	
+		<property name="maxLevel" column="maxLevel"/>
+		
+		<property name="status" column="status"/>
+		<property name="creator" column="creator"/>
+		<property name="creationDate" column="creation_date"/>
+		<property name="modifiedBy" column="modified_by"/>
+		<property name="lastModifyDate" column="last_modify_date"/>	
+		<many-to-one name="parent" column="parent_id"  class="DictSystemModel" cascade="all"/>   
+		 
+	</class>
+</hibernate-mapping>

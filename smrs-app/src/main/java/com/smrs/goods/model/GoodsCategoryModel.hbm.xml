@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.smrs.goods.model">
+
+	<class table="goods_category" name="GoodsCategoryModel">
+		<id  name="id" column="id" type="long">
+			<generator class="native" />
+		</id>	
+		<property name="name" column="name"/>
+		<property name="code" column="code"/>
+		<property name="description" column="description"/>
+		<property name="sortIndex" column="sort_index"/>
+		<property name="level" column="level"/>
+		
+		<many-to-one name="parent" class="GoodsCategoryModel">
+			<column name="parent_id"/>			
+		</many-to-one>
+		
+		<property name="status" column="status"/>
+		<property name="creator" column="creator"/>
+		<property name="creationDate" column="creation_date"/>
+		<property name="modifiedBy" column="modified_by"/>
+		<property name="lastModifyDate" column="last_modify_date"/>	
+		<set name="attributes" table="goods_category_attribute_rel"  inverse="false" order-by="attribute_id asc">
+		  <key column="category_id"></key>
+          <many-to-many column="attribute_id"  class="GoodsAttributeModel"/>   
+		</set>
+		<!--  
+		<set name="groups" table="admin_store_group_rel"  inverse="true" order-by="store_id asc">
+		  <key column="store_id"></key>
+          <many-to-many column="group_id"  class="com.smrs.security.model.GroupModel"/>   
+		</set>
+		-->	
+	</class>
+</hibernate-mapping>

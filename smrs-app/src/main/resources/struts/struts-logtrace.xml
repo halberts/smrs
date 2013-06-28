@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="logtrace" extends="console" namespace="/logtrace">
+		<!-- department -->
+		<action name="*LogTrace" class="com.smrs.logtrace.webapp.action.LogTraceAction" method="{1}LogTrace">
+			<result name="success">/WEB-INF/pages/logtrace/{1}LogTrace.jsp</result>
+			<result name="search" type="redirectAction">searchLogTrace.action</result>
+		</action>
+	
+	</package>
+</struts>

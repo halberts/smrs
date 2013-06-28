@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:lang="http://www.springframework.org/schema/lang"
+	xsi:schemaLocation="
+     http://www.springframework.org/schema/beans 
+     http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+     http://www.springframework.org/schema/tx
+     http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+     http://www.springframework.org/schema/aop 
+     http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+     http://www.springframework.org/schema/jee 
+     http://www.springframework.org/schema/jee/spring-jee-3.1.xsd
+     http://www.springframework.org/schema/context
+     http://www.springframework.org/schema/context/spring-context-3.1.xsd
+     http://www.springframework.org/schema/lang
+     http://www.springframework.org/schema/lang/spring-lang-3.1.xsd">
+	<!-- DAO -->
+	<bean id="groupDAO" class="com.smrs.security.dao.impl.GroupDAOImpl"
+		parent="baseHibernateDAO">
+	</bean> 
+	<!-- Service -->
+	<bean id="groupService"
+		class="com.smrs.security.service.impl.GroupServiceImpl">
+		<property name="groupDAO" ref="groupDAO"></property> 
+		<property name="userDAO" ref="userDAO"></property> 
+		<property name="roleDAO" ref="roleDAO"></property> 
+	</bean>
+	<!-- action -->
+	<!-- 查询组 -->
+	<bean id="searchGroupAction" class="com.smrs.security.webapp.action.SearchGroupAction" scope="prototype" parent="baseSecurityAction">
+	</bean> 
+	<!-- 新建组初始化 -->
+	<bean id="createGroupInitAction" class="com.smrs.security.webapp.action.CreateGroupInitAction" scope="prototype" parent="baseSecurityAction">
+	</bean> 
+	<!-- 新建组 -->
+	<bean id="createGroupAction" class="com.smrs.security.webapp.action.CreateGroupAction" scope="prototype" parent="baseSecurityAction">
+	</bean>
+	<!-- 删除组 -->
+	<bean id="deleteGroupAction" class="com.smrs.security.webapp.action.DeleteGroupAction" scope="prototype" parent="baseSecurityAction">
+	</bean>
+	<!-- 更新组初始化 -->
+	<bean id="updateGroupInitAction" class="com.smrs.security.webapp.action.UpdateGroupInitAction" scope="prototype" parent="baseSecurityAction">
+	</bean>
+	<!-- 更新组 -->
+	<bean id="updateGroupAction" class="com.smrs.security.webapp.action.UpdateGroupAction" scope="prototype" parent="baseSecurityAction">
+	</bean> 
+	<!-- 查看组内人员 -->
+	<bean id="searchUserInGroupAction" class="com.smrs.security.webapp.action.SearchUserInGroupAction" scope="prototype" parent="baseSecurityAction">
+	</bean>  
+	
+	<bean id="searchRoleInGroupAction" class="com.smrs.security.webapp.action.SearchRoleInGroupAction" scope="prototype" parent="baseSecurityAction">
+	</bean>  
+	<!-- 添加人员到组 初始化-->
+	<bean id="addUserToGroupInitAction" class="com.smrs.security.webapp.action.AddUserToGroupInitAction" scope="prototype" parent="baseSecurityAction">
+	</bean> 
+	<!-- 添加人员到组 -->
+	<bean id="addUserToGroupAction" class="com.smrs.security.webapp.action.AddUserToGroupAction" scope="prototype" parent="baseSecurityAction">
+	</bean>
+	<!-- 添加管理员到组 初始化-->
+	<bean id="addAdminToGroupInitAction" class="com.smrs.security.webapp.action.AddAdminToGroupInitAction" scope="prototype" parent="baseSecurityAction">
+	</bean>
+	<!-- 添加管理员到组 -->
+	<bean id="addAdminToGroupAction" class="com.smrs.security.webapp.action.AddAdminToGroupAction" scope="prototype" parent="baseSecurityAction">
+	</bean>
+	<!-- 添加角色到组 初始化-->
+	<bean id="addRoleToGroupInitAction" class="com.smrs.security.webapp.action.AddRoleToGroupInitAction" scope="prototype" parent="baseSecurityAction">
+	</bean>  
+	<!-- 添加角色到组 -->
+	<bean id="addRoleToGroupAction" class="com.smrs.security.webapp.action.AddRoleToGroupAction" scope="prototype" parent="baseSecurityAction">
+	</bean>
+	<!-- 删除组内的人员 --> 
+	<bean id="deleteUserFromGroupAction" class="com.smrs.security.webapp.action.DeleteUserFromGroupAction" scope="prototype" parent="baseSecurityAction">
+	</bean>
+	<!-- 删除组内的人员 --> 
+	<bean id="deleteRoleFromGroupAction" class="com.smrs.security.webapp.action.DeleteRoleFromGroupAction" scope="prototype" parent="baseSecurityAction">
+	</bean>
+	<!-- 搜索人员 --> 
+	<bean id="searchUserToAddGroupInitAction" class="com.smrs.security.webapp.action.SearchUserAction" scope="prototype" parent="baseSecurityAction">
+	</bean>
+	<!-- 搜索组内人员带是否是管理员属性 --> 
+	<bean id="searchAdminInGroupAction" class="com.smrs.security.webapp.action.SearchAdminInGroupAction" scope="prototype" parent="baseSecurityAction">
+	</bean> 
+	<!-- 删除组内管理员 -->
+	<bean id="deleteAdminFromGroupAction" class="com.smrs.security.webapp.action.DeleteAdminFromGroupAction" scope="prototype" parent="baseSecurityAction">
+	</bean> 
+	
+</beans>

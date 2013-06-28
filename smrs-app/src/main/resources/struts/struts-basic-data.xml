@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="basicdata" extends="console" namespace="/basicdata">
+		<!-- department -->
+		<action name="createDepartmentInit" class="com.smrs.basicdata.webapp.action.CreateDepartmentInitAction">
+			<result name="success">/WEB-INF/pages/basicdata/create_department.jsp
+			</result>
+		</action>
+
+
+		<action name="basicLeftMenu" class="securityLeftMenuAction">
+			<result name="success">/WEB-INF/pages/basic/left_menu.jsp</result>
+		</action>
+
+		<action name="*Channel" class="com.smrs.basicdata.webapp.action.ChannelAction" method="{1}Channel">
+			<result name="success">/WEB-INF/pages/basicdata/{1}Channel.jsp</result>
+			<result name="search" type="redirectAction">searchChannel.action</result>
+		</action>
+		
+		<action name="addChannelInit" class="com.smrs.basicdata.webapp.action.ChannelAction" method="addChannelInit">
+			<result name="success">/WEB-INF/pages/basicdata/addChannel.jsp</result>
+		</action>
+		
+		<action name="*MajorStore" class="com.smrs.basicdata.webapp.action.MajorStoreAction" method="{1}MajorStore">
+			<result name="success">/WEB-INF/pages/basicdata/{1}MajorStore.jsp</result>
+		</action>
+		<action name="*Region" class="com.smrs.basicdata.webapp.action.RegionAction" method="{1}Region">
+			<result name="success">/WEB-INF/pages/basicdata/{1}Region.jsp</result>
+			<result name="search" type="redirectAction">searchRegion.action</result>
+		</action>	
+		<action name="*RegionStore" class="com.smrs.basicdata.webapp.action.RegionStoreAction" method="{1}RegionStore">
+			<result name="success">/WEB-INF/pages/basicdata/{1}RegionStore.jsp</result>
+			<result name="search" type="redirectAction">searchRegionStore.action</result>
+		</action>	
+		<action name="*NormalStore" class="com.smrs.basicdata.webapp.action.NormalStoreAction" method="{1}NormalStore">
+			<result name="success">/WEB-INF/pages/basicdata/{1}NormalStore.jsp</result>
+			<result name="search" type="redirectAction">searchNormalStore.action</result>
+		</action>
+
+		<action name="storeTree" class="com.smrs.basicdata.webapp.action.StoreTreeAction" >
+			<interceptor-ref name="jsonCRUDStack" />
+			<result type="json">
+				<param name="root">nodes</param>
+			</result>
+		</action>
+		
+		<action name="displayStoreTree" class="com.smrs.basicdata.webapp.action.DisplayStoreTreeAction">
+			<interceptor-ref name="jsonCRUDStack" />
+			<result type="json">
+				<param name="root">nodes</param>
+			</result>
+		</action>
+		<action name="*DictArea" class="com.smrs.basicdata.webapp.action.DictAreaAction" method="{1}DictArea">
+			<result name="success"></result>
+		</action>
+		<action name="*SystemConfig" class="com.smrs.basicdata.webapp.action.SystemConfigAction" method="{1}SystemConfig">
+			<result name="success"></result>
+		</action>				
+	</package>
+</struts>
